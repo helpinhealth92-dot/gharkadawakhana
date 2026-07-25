@@ -1,35 +1,47 @@
 "use client";
 
+import { useCart } from "../app/context/CartContext";
+
 export default function ProductCard({product}){
 
-return (
+  const { addToCart } = useCart();
 
-<div>
+  return (
 
-<img
-src={product.image}
-alt={product.name}
-width="200"
-/>
+    <div>
 
-<h2>
-{product.name}
-</h2>
+      <img
+        src={product.image}
+        alt={product.name}
+        width="200"
+      />
 
-<p>
-{product.description}
-</p>
+      <h2>
+        {product.name}
+      </h2>
 
-<p>
-Price: {product.price}
-</p>
+      <p>
+        {product.description}
+      </p>
 
-<button>
-Add to Cart
-</button>
+      <p>
+        Price: {product.price}
+      </p>
 
-</div>
 
-);
+      <button
+        onClick={() => addToCart(product.name)}
+        style={{
+          padding:"10px",
+          borderRadius:"8px"
+        }}
+      >
+        🛒 کارٹ میں شامل کریں
+      </button>
+
+
+    </div>
+
+  );
 
 }
