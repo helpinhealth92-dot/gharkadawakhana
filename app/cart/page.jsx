@@ -1,90 +1,139 @@
 export default function Cart() {
-  return (
-    <main
-      style={{
-        padding: "30px",
-        direction: "rtl",
-        fontFamily: "sans-serif"
-      }}
-    >
 
-      <h1 style={{textAlign:"center"}}>
-        آپ کی کارٹ
-      </h1>
+const whatsappNumber = "923477357397";
 
-      <p style={{textAlign:"center"}}>
-        ابھی آپ کی کارٹ خالی ہے۔
-      </p>
+return (
 
-      <div style={{
-        marginTop:"30px",
-        padding:"20px",
-        border:"1px solid #ddd",
-        borderRadius:"15px"
-      }}>
+<main
+style={{
+padding:"30px",
+direction:"rtl",
+fontFamily:"sans-serif"
+}}
+>
 
-        <h2>
-          Checkout
-        </h2>
+<h1 style={{textAlign:"center"}}>
+گھر کا دَواخانہ - آرڈر
+</h1>
 
-        <p>
-          نام:
-        </p>
 
-        <input
-          style={{
-            width:"100%",
-            padding:"10px"
-          }}
-          placeholder="اپنا نام لکھیں"
-        />
+<div
+style={{
+border:"1px solid #ddd",
+borderRadius:"15px",
+padding:"20px",
+marginTop:"20px"
+}}
+>
 
-        <p>
-          فون نمبر:
-        </p>
+<h2>
+آپ کی کارٹ
+</h2>
 
-        <input
-          style={{
-            width:"100%",
-            padding:"10px"
-          }}
-          placeholder="فون نمبر"
-        />
+<div
+style={{
+padding:"15px",
+background:"#f5f5f5",
+borderRadius:"10px"
+}}
+>
 
-        <p>
-          پتہ:
-        </p>
+<p>
+مصنوع: ہلدی پاؤڈر
+</p>
 
-        <textarea
-          style={{
-            width:"100%",
-            padding:"10px"
-          }}
-          placeholder="مکمل پتہ"
-        />
+<p>
+مقدار: 1
+</p>
 
-        <h3>
-          ادائیگی کا طریقہ
-        </h3>
+<p>
+قیمت: 500 روپے
+</p>
 
-        <label>
-          <input type="radio" name="payment" />
-          کیش آن ڈیلیوری
-        </label>
+</div>
 
-        <br/><br/>
 
-        <button
-          style={{
-            padding:"12px 25px",
-            borderRadius:"10px"
-          }}
-        >
-          آرڈر مکمل کریں
-        </button>
+<h2>
+گاہک کی معلومات
+</h2>
 
-      </div>
 
-    </main>
-  );
+<input
+style={{
+width:"100%",
+padding:"12px",
+marginBottom:"10px"
+}}
+placeholder="اپنا نام لکھیں"
+/>
+
+
+<input
+style={{
+width:"100%",
+padding:"12px",
+marginBottom:"10px"
+}}
+placeholder="موبائل نمبر"
+/>
+
+
+<textarea
+style={{
+width:"100%",
+padding:"12px",
+height:"100px"
+}}
+placeholder="مکمل پتہ لکھیں"
+/>
+
+
+<h3>
+ادائیگی کا طریقہ
+</h3>
+
+
+<label>
+
+<input
+type="radio"
+checked
+readOnly
+/>
+
+ کیش آن ڈیلیوری
+
+</label>
+
+
+<br/><br/>
+
+
+<a
+href={`https://wa.me/${whatsappNumber}?text=میں%20گھر%20کا%20دَواخانہ%20سے%20آرڈر%20کرنا%20چاہتا%20ہوں`}
+target="_blank"
+>
+
+<button
+style={{
+padding:"14px 25px",
+borderRadius:"10px",
+cursor:"pointer"
+}}
+>
+
+🟢 WhatsApp پر آرڈر بھیجیں
+
+</button>
+
+</a>
+
+
+</div>
+
+
+</main>
+
+);
+
 }
