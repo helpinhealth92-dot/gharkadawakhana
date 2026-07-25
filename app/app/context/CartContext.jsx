@@ -2,19 +2,20 @@
 
 import { createContext, useContext, useState } from "react";
 
-const CartContext = createContext();
+const CartContext = createContext(null);
 
 export function CartProvider({ children }) {
-
   const [cart, setCart] = useState([]);
 
-  const addToCart = (item) => {
-    setCart([...cart, item]);
-  };
+  function addToCart(product) {
+    setCart((oldCart) => [...oldCart, product]);
+  }
 
-  const removeFromCart = (index) => {
-    setCart(cart.filter((_, i) => i !== index));
-  };
+  function removeFromCart(index) {
+    setCart((oldCart) =>
+      oldCart.filter((_, i) => i !== index)
+    );
+  }
 
   return (
     <CartContext.Provider
@@ -28,7 +29,6 @@ export function CartProvider({ children }) {
     </CartContext.Provider>
   );
 }
-
 
 export function useCart() {
   return useContext(CartContext);
