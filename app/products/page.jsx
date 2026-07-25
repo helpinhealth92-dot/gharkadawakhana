@@ -86,7 +86,7 @@ fontFamily:"sans-serif"
 }}>
 
 <h1 style={{textAlign:"center"}}>
-گھر کا دَواخانہ - ہماری مصنوعات
+گھر کا دَواخانہ - تمام مصنوعات
 </h1>
 
 
