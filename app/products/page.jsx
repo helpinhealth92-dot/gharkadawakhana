@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCart } from "../context/CartContext";
 
 export default function Products() {
@@ -48,17 +49,32 @@ export default function Products() {
   return (
     <main
       style={{
-        padding:"30px",
-        direction:"rtl",
-        fontFamily:"sans-serif"
+        padding: "30px",
+        direction: "rtl",
+        fontFamily: "sans-serif"
       }}
     >
 
-      <h1 style={{textAlign:"center"}}>
+      <h1 style={{ textAlign:"center" }}>
         گھر کا دَواخانہ
       </h1>
 
-      <h2 style={{textAlign:"center"}}>
+
+      <div style={{textAlign:"center", margin:"20px"}}>
+        <Link href="/cart">
+          <button
+            style={{
+              padding:"12px",
+              borderRadius:"8px"
+            }}
+          >
+            🛒 کارٹ دیکھیں
+          </button>
+        </Link>
+      </div>
+
+
+      <h2 style={{ textAlign:"center" }}>
         تمام مصنوعات
       </h2>
 
@@ -97,7 +113,9 @@ export default function Products() {
           </div>
 
 
-          <h3>{item}</h3>
+          <h3>
+            {item}
+          </h3>
 
 
           <p>
