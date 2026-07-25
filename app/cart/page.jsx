@@ -4,12 +4,64 @@ import { useCart } from "../context/CartContext";
 
 export default function Cart() {
 
-  const { cart } = useCart();
+  const { cart, removeFromCart } = useCart();
 
   return (
-    <div>
-      <h1>کارٹ</h1>
-      <p>Items: {cart.length}</p>
-    </div>
+    <main
+      style={{
+        padding: "30px",
+        direction: "rtl",
+        fontFamily: "sans-serif"
+      }}
+    >
+
+      <h1>
+        🛒 کارٹ
+      </h1>
+
+      <h3>
+        Items: {cart.length}
+      </h3>
+
+
+      {cart.length === 0 ? (
+
+        <p>
+          کارٹ خالی ہے
+        </p>
+
+      ) : (
+
+        cart.map((item, index) => (
+
+          <div
+            key={index}
+            style={{
+              border:"1px solid #ddd",
+              padding:"15px",
+              margin:"10px 0",
+              borderRadius:"10px"
+            }}
+          >
+
+            <h3>
+              {item}
+            </h3>
+
+
+            <button
+              onClick={() => removeFromCart(index)}
+            >
+              ❌ حذف کریں
+            </button>
+
+
+          </div>
+
+        ))
+
+      )}
+
+    </main>
   );
 }
