@@ -19,39 +19,23 @@ const products = [
 "سفید موصلی پاؤڈر",
 "ستاور پاؤڈر",
 "السی پاؤڈر",
-"چیا سیڈ پاؤڈر",
-"کدو کے بیج پاؤڈر",
-"گلاب کی پتی پاؤڈر",
-"چقندر پاؤڈر",
+"تخم ملنگا",
+"اسپغول کا چھلکا",
 "کالی مرچ پاؤڈر",
 "لونگ پاؤڈر",
 "الائچی پاؤڈر",
 "جائفل پاؤڈر",
-"زردچوب پاؤڈر",
-"تخم ملنگا پاؤڈر",
-"اسپغول کا چھلکا",
+"گلاب کی پتی پاؤڈر",
 "ہربل ہاضمہ چورن",
-"ہربل طاقت سفوف",
-"معدہ صحت سفوف",
-"جوڑوں کا تیل",
-"کمر درد کا تیل",
-"کلونجی کا تیل",
-"زیتون کا تیل",
-"بادام روغن",
-"شہد خالص",
-"گولڈن ملک ہربل مکس",
-"قدرتی ہربل چائے",
-"عرق گلاب",
-"عرق سونف",
-"ہربل صابن",
-"بالوں کا ہربل تیل",
-"قدرتی جلدی کریم",
-"ہربل مرہم",
-"قدرتی شربت",
+"طاقت سفوف",
 "معجون",
 "خمیرہ",
 "جوارش",
-"قدرتی سفوف مکس"
+"شہد خالص",
+"زیتون کا تیل",
+"کلونجی کا تیل",
+"بادام روغن",
+"گولڈن ملک ہربل مکس"
 ];
 
 
@@ -66,52 +50,99 @@ fontFamily:"sans-serif"
 <h1 style={{
 textAlign:"center"
 }}>
-گھر کا دَواخانہ - مصنوعات
+گھر کا دَواخانہ
 </h1>
+
+<h2 style={{
+textAlign:"center"
+}}>
+تمام مصنوعات
+</h2>
 
 
 <div style={{
 display:"grid",
 gridTemplateColumns:"repeat(auto-fit,minmax(250px,1fr))",
-gap:"20px",
-marginTop:"30px"
+gap:"20px"
 }}>
 
-{products.map((product,index)=>(
+
+{products.map((item,index)=>(
 
 <div key={index}
 style={{
-border:"1px solid #ccc",
-padding:"20px",
+border:"1px solid #ddd",
 borderRadius:"15px",
+padding:"20px",
 textAlign:"center"
 }}>
 
-<h2>{product}</h2>
+<div style={{
+height:"120px",
+background:"#f3f3f3",
+borderRadius:"10px",
+display:"flex",
+alignItems:"center",
+justifyContent:"center"
+}}>
+تصویر یہاں ہوگی
+</div>
+
+
+<h3>
+{item}
+</h3>
+
 
 <p>
-قدرتی جڑی بوٹیوں سے تیار کردہ
+وزن: 100 گرام / 250 گرام / 500 گرام
 </p>
 
+
 <p>
-قیمت اور تفصیل جلد شامل ہوگی
+قیمت: جلد درج ہوگی
 </p>
+
+
+<a
+href={`https://wa.me/923477357397?text=میں ${item} کے بارے میں معلومات چاہتا ہوں`}
+target="_blank"
+>
 
 <button style={{
-padding:"10px 20px",
+padding:"10px",
+margin:"5px",
 borderRadius:"8px"
 }}>
-رابطہ کریں
+🟢 WhatsApp آرڈر
 </button>
+
+</a>
+
+
+<a href="/cart">
+
+<button style={{
+padding:"10px",
+margin:"5px",
+borderRadius:"8px"
+}}>
+🛒 کارٹ میں شامل کریں
+</button>
+
+</a>
+
 
 </div>
 
 ))}
 
+
 </div>
+
 
 </main>
 
-);
+)
 
 }
