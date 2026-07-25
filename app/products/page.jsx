@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { useCart } from "../context/CartContext";
+import { useState } from "react";
 
 export default function Products() {
 
   const { addToCart } = useCart();
+  const [message, setMessage] = useState("");
 
   const products = [
     "ہلدی پاؤڈر",
@@ -46,37 +48,69 @@ export default function Products() {
   ];
 
 
+  function addProduct(item) {
+    addToCart(item);
+    setMessage(`${item} کارٹ میں شامل ہو گیا ہے`);
+
+    setTimeout(() => {
+      setMessage("");
+    }, 2000);
+  }
+
+
   return (
+
     <main
       style={{
-        padding: "30px",
-        direction: "rtl",
-        fontFamily: "sans-serif"
+        padding:"30px",
+        direction:"rtl",
+        fontFamily:"sans-serif"
       }}
     >
 
-      <h1 style={{ textAlign:"center" }}>
+      <h1 style={{textAlign:"center"}}>
         گھر کا دَواخانہ
       </h1>
 
 
       <div style={{textAlign:"center", margin:"20px"}}>
+
         <Link href="/cart">
+
           <button
             style={{
               padding:"12px",
               borderRadius:"8px"
             }}
           >
-            🛒 کارٹ دیکھیں
+            🛒 کارٹ کھولیں
           </button>
+
         </Link>
+
       </div>
 
 
-      <h2 style={{ textAlign:"center" }}>
+      {message && (
+
+        <p
+          style={{
+            textAlign:"center",
+            color:"green",
+            fontWeight:"bold"
+          }}
+        >
+          {message}
+        </p>
+
+      )}
+
+
+
+      <h2 style={{textAlign:"center"}}>
         تمام مصنوعات
       </h2>
+
 
 
       <div
@@ -87,7 +121,9 @@ export default function Products() {
         }}
       >
 
+
       {products.map((item,index)=>(
+
 
         <div
           key={index}
@@ -98,6 +134,7 @@ export default function Products() {
             textAlign:"center"
           }}
         >
+
 
           <div
             style={{
@@ -128,6 +165,7 @@ export default function Products() {
           </p>
 
 
+
           <a
             href={`https://wa.me/923477357397?text=میں ${item} کا آرڈر کرنا چاہتا ہوں`}
             target="_blank"
@@ -146,24 +184,34 @@ export default function Products() {
           </a>
 
 
+
           <button
-            onClick={() => addToCart(item)}
+
+            onClick={() => addProduct(item)}
+
             style={{
               padding:"10px",
               margin:"5px",
               borderRadius:"8px"
             }}
+
           >
             🛒 کارٹ میں شامل کریں
           </button>
 
 
+
         </div>
+
 
       ))}
 
+
       </div>
 
+
     </main>
+
   );
+
 }
