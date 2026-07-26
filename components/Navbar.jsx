@@ -5,110 +5,99 @@ import React, { useState } from 'react';
 export default function Navbar() {
   const [activeTab, setActiveTab] = useState('home');
   const [adminTab, setAdminTab] = useState('add');
-  const [checkoutStep, setCheckoutStep] = useState('cart'); // 'cart', 'payment', 'success'
-  
+  const [checkoutStep, setCheckoutStep] = useState('cart'); 
+
+  // پروڈکٹس (تصویر، وزن، اسٹاک کے ساتھ)
   const [products, setProducts] = useState([
-    { id: 1, nameUrdu: 'شربتِ صندل', nameEng: 'Sharbat Sandal', price: 250, stock: 20, weight: '500g', img: '', desc: 'جگر کے لیے مفید' }
+    { id: 1, nameUrdu: 'شربتِ صندل', nameEng: 'Sharbat Sandal', price: 250, stock: 20, weight: '500g', img: '/logo.png', desc: 'معدے اور جگر کے لیے' }
   ]);
 
   const [cart, setCart] = useState([]);
   const [formData, setFormData] = useState({ nameUrdu: '', nameEng: '', price: '', stock: '', weight: '100g', img: '', desc: '' });
-  const [editingId, setEditingId] = useState(null);
 
-  // پروڈکٹ آپریشنز
+  // پروڈکٹ سیو کرنا
   const handleSaveProduct = (e) => {
     e.preventDefault();
-    if (editingId) {
-      setProducts(products.map(p => p.id === editingId ? { ...formData, id: editingId } : p));
-      setEditingId(null);
-    } else {
-      setProducts([...products, { ...formData, id: Date.now() }]);
-    }
+    setProducts([...products, { ...formData, id: Date.now() }]);
+    alert('پروڈکٹ شامل ہو گئی!');
     setFormData({ nameUrdu: '', nameEng: '', price: '', stock: '', weight: '100g', img: '', desc: '' });
-    alert('محفوظ ہو گیا!');
   };
 
   const addToCart = (product) => {
     setCart([...cart, product]);
-    alert('کارٹ میں شامل کر دیا گیا');
-  };
-
-  const handleCheckout = (method) => {
-    setCheckoutStep('success');
-    setCart([]); // کارٹ خالی کر دیں
+    alert('کارٹ میں شامل کر دیا گیا!');
   };
 
   return (
-    <nav style={styles.container}>
-      {/* ہیڈر */}
-      <div style={styles.header}>
-        <h2 style={styles.title}>گھر کا دواخانہ</h2>
+    <nav style={styles.navContainer}>
+      {/* 1. لوگو اور ہیڈر بحال کیا */}
+      <div style={styles.headerTop}>
+        <div style={styles.brandText}>
+          <h2 style={styles.titleUrdu}>گھر کا دواخانہ</h2>
+          <h3 style={styles.titleEnglish}>Herbalist Afzal Nadeem</h3>
+        </div>
+        <img src="/logo.png" alt="Logo" style={styles.logo} />
       </div>
 
-      {/* نیویگیشن */}
-      <div style={styles.navGrid}>
-        <button onClick={() => {setActiveTab('home'); setCheckoutStep('cart')}} style={styles.navBtn}>Home</button>
-        <button onClick={() => setActiveTab('products')} style={styles.navBtn}>Products</button>
-        <button onClick={() => setActiveTab('cart')} style={styles.navBtn}>Cart ({cart.length})</button>
-        <button onClick={() => setActiveTab('admin')} style={styles.navBtn}>Admin</button>
+      {/* 2. اصل نیویگیشن بٹنز */}
+      <div style={styles.buttonGrid}>
+        <button onClick={() => {setActiveTab('home'); setCheckoutStep('cart')}} style={styles.btnDark}>Home 🏠</button>
+        <button onClick={() => setActiveTab('products')} style={styles.btnLight}>Products 🌿</button>
+        <button onClick={() => setActiveTab('cart')} style={styles.btnDark}>Cart ({cart.length}) 🛒</button>
+        <button onClick={() => setActiveTab('admin')} style={styles.btnLight}>Admin ⚙️</button>
+        <button onClick={() => setActiveTab('contact')} style={styles.btnDark}>Contact 📞</button>
       </div>
 
-      {/* کنٹینٹ ایریا */}
-      <div style={styles.content}>
+      {/* 3. کنٹینٹ ایریا */}
+      <div style={styles.contentArea}>
         
-        {/* ہوم */}
-        {activeTab === 'home' && <div style={styles.box}><h3>خوش آمدید!</h3><p>یہاں آپ کی تمام ادویات دستیاب ہیں۔</p></div>}
+        {activeTab === 'home' && <div style={styles.card}><h3>خوش آمدید</h3><p>آپ کے پسندیدہ دواخانے میں خوش آمدید۔</p></div>}
 
-        {/* پروڈکٹس */}
         {activeTab === 'products' && (
-          <div style={styles.box}>
+          <div style={styles.card}>
+            <h3>مصنوعات</h3>
             {products.map(p => (
               <div key={p.id} style={styles.item}>
-                <h4>{p.nameUrdu} ({p.weight})</h4>
-                <p>قیمت: {p.price} روپے</p>
-                <button onClick={() => addToCart(p)} style={styles.btnGreen}>خریدیں</button>
+                <img src={p.img} style={{width:40}} />
+                <div>
+                  <strong>{p.nameUrdu}</strong> ({p.weight})
+                  <p>قیمت: {p.price} Rs | سٹاک: {p.stock}</p>
+                </div>
+                <button onClick={() => addToCart(p)} style={styles.buyBtn}>شامل کریں</button>
               </div>
             ))}
           </div>
         )}
 
-        {/* کارٹ اور چیک آؤٹ */}
         {activeTab === 'cart' && (
-          <div style={styles.box}>
+          <div style={styles.card}>
             {checkoutStep === 'cart' && (
               <div>
                 <h3>آپ کا کارٹ</h3>
-                {cart.length === 0 ? <p>خالی ہے</p> : (
-                  <>
-                    {cart.map((item, i) => <div key={i} style={styles.item}>{item.nameUrdu} - {item.price} Rs</div>)}
-                    <button onClick={() => setCheckoutStep('payment')} style={styles.btnBlue}>چیک آؤٹ پر جائیں</button>
-                  </>
-                )}
+                {cart.map((item, i) => <div key={i} style={styles.item}>{item.nameUrdu} - {item.price} Rs</div>)}
+                <button onClick={() => setCheckoutStep('payment')} style={styles.payBtn}>چیک آؤٹ (Checkout)</button>
               </div>
             )}
-            
             {checkoutStep === 'payment' && (
               <div>
-                <h3>ادائیگی کا طریقہ منتخب کریں</h3>
-                <button onClick={() => handleCheckout('COD')} style={styles.payBtn}>کیش آن ڈلیوری</button>
-                <button onClick={() => handleCheckout('Jazz')} style={styles.payBtn}>جاز کیش</button>
-                <button onClick={() => handleCheckout('Easy')} style={styles.payBtn}>ایزی پیسہ</button>
+                <h3>ادائیگی کا طریقہ</h3>
+                <button onClick={() => setCheckoutStep('success')} style={styles.methodBtn}>کیش آن ڈلیوری</button>
+                <button onClick={() => setCheckoutStep('success')} style={styles.methodBtn}>جاز کیش</button>
+                <button onClick={() => setCheckoutStep('success')} style={styles.methodBtn}>ایزی پیسہ</button>
               </div>
             )}
-
             {checkoutStep === 'success' && (
               <div style={{textAlign:'center'}}>
                 <h3>آپ کی خریداری کا بہت شکریہ!</h3>
-                <p>آپ کا آرڈر موصول ہو چکا ہے۔</p>
-                <button onClick={() => {setCheckoutStep('cart'); setActiveTab('home')}} style={styles.btnGreen}>واپس جائیں</button>
+                <button onClick={() => {setCheckoutStep('cart'); setCart([]); setActiveTab('home')}} style={styles.btnDark}>واپس جائیں</button>
               </div>
             )}
           </div>
         )}
 
-        {/* ایڈمن پینل */}
         {activeTab === 'admin' && (
-          <div style={styles.box}>
+          <div style={styles.card}>
+            <h3>پروڈکٹ کا انتظام</h3>
             <form onSubmit={handleSaveProduct} style={styles.form}>
               <input placeholder="نام اردو" value={formData.nameUrdu} onChange={(e) => setFormData({...formData, nameUrdu: e.target.value})} style={styles.input} />
               <input type="number" placeholder="قیمت" value={formData.price} onChange={(e) => setFormData({...formData, price: e.target.value})} style={styles.input} />
@@ -117,15 +106,8 @@ export default function Navbar() {
                 <option value="500g">500 گرام</option>
                 <option value="1kg">1 کلو گرام</option>
               </select>
-              <button type="submit" style={styles.btnGreen}>محفوظ کریں</button>
+              <button type="submit" style={styles.btnDark}>محفوظ کریں</button>
             </form>
-            <hr />
-            {products.map(p => (
-              <div key={p.id} style={styles.item}>
-                {p.nameUrdu} 
-                <button onClick={() => setProducts(products.filter(x => x.id !== p.id))} style={styles.btnRed}>حذف</button>
-              </div>
-            ))}
           </div>
         )}
       </div>
@@ -134,16 +116,15 @@ export default function Navbar() {
 }
 
 const styles = {
-  container: { padding: '15px', direction: 'rtl', fontFamily: 'sans-serif', maxWidth: '500px', margin: 'auto' },
-  header: { textAlign: 'center', marginBottom: '20px', color: '#2b5e29' },
-  navGrid: { display: 'flex', gap: '5px', justifyContent: 'center' },
-  navBtn: { padding: '8px', border: 'none', background: '#e0e0e0', cursor: 'pointer' },
-  box: { marginTop: '15px', padding: '15px', background: '#f9f9f9', borderRadius: '10px' },
-  item: { display: 'flex', justifyContent: 'space-between', padding: '10px', borderBottom: '1px solid #ddd' },
-  form: { display: 'flex', flexDirection: 'column', gap: '5px' },
-  input: { padding: '8px' },
-  btnGreen: { padding: '10px', background: '#2e7d32', color: '#fff', border: 'none', cursor: 'pointer' },
-  btnBlue: { padding: '10px', background: '#1976d2', color: '#fff', border: 'none', cursor: 'pointer', marginTop: '10px' },
-  btnRed: { background: '#d32f2f', color: '#fff', border: 'none', cursor: 'pointer' },
-  payBtn: { display: 'block', width: '100%', padding: '15px', margin: '10px 0', background: '#4caf50', color: '#fff', border: 'none' }
+  navContainer: { padding: '15px', maxWidth: '450px', margin: '0 auto', fontFamily: 'sans-serif', direction: 'rtl' },
+  headerTop: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' },
+  logo: { width: '60px', borderRadius: '50%' },
+  buttonGrid: { display: 'flex', flexWrap: 'wrap', gap: '5px', justifyContent: 'center' },
+  btnDark: { padding: '8px', background: '#1b5e20', color: '#fff', border: 'none', borderRadius: '5px' },
+  btnLight: { padding: '8px', background: '#e8f5e9', color: '#1b5e20', border: 'none', borderRadius: '5px' },
+  card: { marginTop: '15px', padding: '15px', background: '#fff', borderRadius: '10px', boxShadow: '0 2px 5px #ccc' },
+  item: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px', borderBottom: '1px solid #eee' },
+  input: { padding: '8px', width: '100%', marginBottom: '5px' },
+  payBtn: { width: '100%', padding: '15px', background: '#004d40', color: '#fff', border: 'none', marginTop: '10px' },
+  methodBtn: { display: 'block', width: '100%', padding: '10px', margin: '5px 0', background: '#4caf50', color: '#fff', border: 'none' }
 };
