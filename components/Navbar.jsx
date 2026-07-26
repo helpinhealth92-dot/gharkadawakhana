@@ -6,230 +6,309 @@ import { useCart } from "../app/context/CartContext";
 
 export default function Navbar(){
 
-const {cart}=useCart();
+  const { cart } = useCart();
 
 
-return(
+  return (
 
-<nav
+    <header
+      style={{
+        direction:"rtl",
+        background:"#ffffff",
+        boxShadow:"0 4px 20px rgba(0,0,0,0.08)",
+        position:"sticky",
+        top:0,
+        zIndex:100
+      }}
+    >
 
-style={{
 
-direction:"rtl",
+      <nav
 
-background:"#ffffff",
+      style={{
 
-padding:"15px 30px",
+        maxWidth:"1200px",
 
-display:"flex",
+        margin:"auto",
 
-alignItems:"center",
+        padding:"15px 25px",
 
-justifyContent:"space-between",
+        display:"flex",
 
-flexWrap:"wrap",
+        alignItems:"center",
 
-boxShadow:"0 3px 15px #ddd",
+        justifyContent:"space-between",
 
-position:"sticky",
+        gap:"20px",
 
-top:0,
+        flexWrap:"wrap"
 
-zIndex:50
+      }}
 
-}}
+      >
 
->
 
 
+        {/* Brand */}
 
-{/* Logo */}
+        <Link
 
-<Link
+        href="/"
 
-href="/"
+        style={{
 
-style={{
+          textDecoration:"none",
 
-textDecoration:"none",
+          color:"#1b5e20"
 
-color:"#1b5e20"
+        }}
 
-}}
+        >
 
->
 
+          <div
 
-<div
+          style={{
 
-style={{
+            display:"flex",
 
-display:"flex",
+            alignItems:"center",
 
-alignItems:"center",
+            gap:"12px"
 
-gap:"12px"
+          }}
 
-}}
+          >
 
->
 
 
-<div
+            <div
 
-style={{
+            style={{
 
-width:"55px",
+              width:"60px",
 
-height:"55px",
+              height:"60px",
 
-borderRadius:"50%",
+              borderRadius:"50%",
 
-background:"#1b5e20",
+              background:"linear-gradient(135deg,#1b5e20,#66bb6a)",
 
-display:"flex",
+              display:"flex",
 
-alignItems:"center",
+              justifyContent:"center",
 
-justifyContent:"center",
+              alignItems:"center",
 
-fontSize:"30px"
+              fontSize:"32px",
 
-}}
+              boxShadow:"0 5px 15px #ccc"
 
->
+            }}
 
-🌿
+            >
 
-</div>
+              🌿
 
+            </div>
 
 
-<div>
 
 
-<h2
+            <div>
 
-style={{
 
-margin:0,
+              <h2
 
-fontSize:"22px",
+              style={{
 
-fontWeight:"bold"
+                margin:0,
 
-}}
+                fontSize:"24px",
 
->
+                fontWeight:"bold"
 
-گھر کا دَواخانہ
+              }}
 
-</h2>
+              >
 
+                گھر کا دَواخانہ
 
-<small>
+              </h2>
 
-Herbalist Afzal Nadeem
 
-</small>
 
+              <p
 
-</div>
+              style={{
 
+                margin:0,
 
+                fontSize:"14px",
 
-</div>
+                color:"#555"
 
+              }}
 
-</Link>
+              >
 
+                Herbalist Afzal Nadeem
 
+              </p>
 
 
 
-{/* Menu */}
+            </div>
 
 
-<div
 
-style={{
+          </div>
 
-display:"flex",
 
-gap:"12px",
 
-alignItems:"center",
+        </Link>
 
-flexWrap:"wrap"
 
-}}
 
->
 
 
-<MenuLink href="/" text="🏠 Home"/>
 
-<MenuLink href="/products" text="🌿 Products"/>
+        {/* Menu */}
 
-<MenuLink href="/contact" text="📞 Contact Us"/>
 
+        <div
 
+        style={{
 
-<Link
+          display:"flex",
 
-href="/cart"
+          alignItems:"center",
 
-style={cartStyle}
+          gap:"10px",
 
->
+          flexWrap:"wrap"
 
-🛒 Cart
+        }}
 
-<span
+        >
 
-style={{
 
-background:"#ffffff",
 
-color:"#1b5e20",
+          <NavButton href="/" text="🏠 Home"/>
 
-borderRadius:"50%",
 
-padding:"2px 8px",
+          <NavButton href="/products" text="🌿 Products"/>
 
-marginRight:"5px",
 
-fontWeight:"bold"
+          <NavButton href="/contact" text="📞 Contact Us"/>
 
-}}
 
->
 
-{cart.length}
+        </div>
 
-</span>
 
 
-</Link>
 
 
 
-</div>
+        {/* Cart */}
 
 
+        <Link
 
+        href="/cart"
 
-</nav>
+        style={{
 
+          textDecoration:"none"
 
-)
+        }}
+
+        >
+
+
+          <div
+
+          style={{
+
+            background:"#1b5e20",
+
+            color:"white",
+
+            padding:"12px 22px",
+
+            borderRadius:"30px",
+
+            display:"flex",
+
+            alignItems:"center",
+
+            gap:"8px",
+
+            fontWeight:"bold",
+
+            boxShadow:"0 5px 15px rgba(27,94,32,0.3)"
+
+          }}
+
+          >
+
+            🛒 Cart
+
+
+            <span
+
+            style={{
+
+              background:"white",
+
+              color:"#1b5e20",
+
+              borderRadius:"50%",
+
+              minWidth:"25px",
+
+              height:"25px",
+
+              display:"flex",
+
+              alignItems:"center",
+
+              justifyContent:"center"
+
+            }}
+
+            >
+
+              {cart.length}
+
+            </span>
+
+
+
+          </div>
+
+
+        </Link>
+
+
+
+      </nav>
+
+
+
+    </header>
+
+
+  );
 
 }
 
 
 
 
-function MenuLink({href,text}){
+
+function NavButton({href,text}){
 
 
 return(
@@ -244,13 +323,17 @@ textDecoration:"none",
 
 color:"#1b5e20",
 
-fontWeight:"bold",
+background:"#f1f8e9",
 
-padding:"10px 15px",
+padding:"10px 18px",
 
 borderRadius:"25px",
 
-background:"#f1f8e9"
+fontWeight:"600",
+
+fontSize:"15px",
+
+transition:"0.3s"
 
 }}
 
@@ -260,30 +343,7 @@ background:"#f1f8e9"
 
 </Link>
 
+
 )
 
 }
-
-
-
-
-
-const cartStyle={
-
-textDecoration:"none",
-
-background:"#1b5e20",
-
-color:"white",
-
-padding:"10px 18px",
-
-borderRadius:"25px",
-
-fontWeight:"bold",
-
-display:"flex",
-
-alignItems:"center"
-
-};
