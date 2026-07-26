@@ -16,7 +16,7 @@ export default function Navbar() {
         />
       </div>
 
-      {/* بٹنز کا مکمل سیکشن */}
+      {/* بٹنز کا سیکشن */}
       <div style={styles.buttonGrid}>
         <a href="#home" style={{ ...styles.btn, ...styles.btnLight }}>
           Home 🏠
@@ -38,7 +38,7 @@ export default function Navbar() {
   );
 }
 
-// تمام اسٹائلز ایک ہی جگہ پر
+// درست جاوا سکرپٹ ابجیکٹ اسٹائلز
 const styles = {
   navContainer: {
     display: 'flex',
@@ -52,7 +52,7 @@ const styles = {
   },
   headerTop: {
     display: 'flex',
-    justify-content: 'space-between',
+    justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
     marginBottom: '20px'
@@ -80,7 +80,7 @@ const styles = {
   buttonGrid: {
     display: 'flex',
     flexWrap: 'wrap',
-    justify-content: 'center',
+    justifyContent: 'center',
     gap: '12px',
     width: '100%',
     direction: 'ltr'
