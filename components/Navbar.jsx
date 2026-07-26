@@ -13,9 +13,6 @@ export default function App() {
   // واٹس ایپ نمبر
   const whatsappNumber = '923477357397';
 
-  // آپ کے اصلی لوگو کی تصویر
-  const logoUrl = 'https://i.ibb.co/L8yXJ2B/afzal-logo.png'; 
-
   // نئی پروڈکٹ کا فارم
   const [newProduct, setNewProduct] = useState({ nameUrdu: '', basePrice: '', desc: '', img: '' });
 
@@ -108,34 +105,38 @@ export default function App() {
   };
 
   return (
-    <div style={{ maxWidth: '450px', margin: 'auto', fontFamily: 'sans-serif', backgroundColor: activeTab === 'admin' ? '#145214' : '#ffffff', minHeight: '100vh', transition: 'background-color 0.3s' }}>
+    <div style={{ maxWidth: '450px', margin: 'auto', fontFamily: 'sans-serif', backgroundColor: activeTab === 'admin' ? '#145214' : '#ffffff', minHeight: '100vh' }}>
       
-      {/* ================= 1. مین ویب سائٹ کا ویو ================= */}
+      {/* ================= 1. اصلی ویب سائٹ ================= */}
       {activeTab !== 'admin' && (
         <div style={{ padding: '15px' }}>
           
-          {/* اوپر کا ہینڈر اور آپ کا اصلی مونوگرام (تصویر #1 اور #3 کے مطابق) */}
+          {/* آپ کا مونوگرام اور ہیڈر (تصویر کے عین مطابق) */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-            {/* اصل لوگو */}
-            <div style={{ width: '85px', height: '85px', borderRadius: '50%', overflow: 'hidden', border: '2px solid #2e7d32', backgroundColor: '#f5f5f5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <img 
-                src={logoUrl} 
-                alt="Afzal Nadeem Monogram" 
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=200";
-                }}
-              />
+            
+            {/* اصل مونوگرام (لوگو) */}
+            <div style={{ width: '90px', height: '90px', borderRadius: '50%', border: '3px solid #1b5e20', overflow: 'hidden', backgroundColor: '#f9fbf9', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '5px', boxSizing: 'border-box', textAlign: 'center' }}>
+              <div style={{ fontSize: '9px', fontWeight: 'bold', color: '#1b5e20', borderBottom: '1px solid #1b5e20', width: '100%', paddingBottom: '2px' }}>
+                NATURAL • PURE
+              </div>
+              <div style={{ fontSize: '11px', fontWeight: 'bold', color: '#1b5e20', margin: '2px 0' }}>
+                Herbalist
+              </div>
+              <div style={{ fontSize: '12px', fontWeight: '900', color: '#1b5e20', lineHeight: '1' }}>
+                Afzal Nadeem
+              </div>
+              <div style={{ fontSize: '8px', color: '#2e7d32', marginTop: '2px' }}>
+                گھر کا دواخانہ
+              </div>
             </div>
 
             <div style={{ textAlign: 'right' }}>
-              <h2 style={{ color: '#2e7d32', margin: '0', fontSize: '26px', fontFamily: 'Urdu, sans-serif' }}>گھر کا دواخانہ</h2>
-              <p style={{ margin: '3px 0 0 0', color: '#444', fontSize: '16px', fontWeight: 'bold' }}>Herbalist Afzal Nadeem</p>
+              <h2 style={{ color: '#2e7d32', margin: '0', fontSize: '28px', fontFamily: 'Urdu, sans-serif' }}>گھر کا دواخانہ</h2>
+              <p style={{ margin: '2px 0 0 0', color: '#333', fontSize: '17px', fontWeight: 'bold' }}>Herbalist Afzal Nadeem</p>
             </div>
           </div>
 
-          {/* مین بٹنز (Home, Contact, Admin Dashboard, Products, Cart) */}
+          {/* مین بٹنز */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center', marginBottom: '25px' }}>
             
             <div style={{ display: 'flex', gap: '15px', width: '100%', justifyContent: 'center' }}>
@@ -186,7 +187,7 @@ export default function App() {
             </div>
           )}
 
-          {/* کارٹ کا ویو */}
+          {/* کارٹ */}
           {activeTab === 'cart' && !orderSuccess && (
             <div style={{ direction: 'rtl' }}>
               <div style={{ backgroundColor: '#f9f9f9', padding: '15px', borderRadius: '12px', marginBottom: '15px' }}>
@@ -231,7 +232,7 @@ export default function App() {
             </div>
           )}
 
-          {/* آرڈر مکمل ہونے کی سکرین */}
+          {/* آرڈر شکریہ سکرین */}
           {orderSuccess && (
             <div style={{ padding: '30px 15px', textAlign: 'center', backgroundColor: '#e8f5e9', borderRadius: '12px', direction: 'rtl' }}>
               <h1 style={{ fontSize: '48px', margin: '0' }}>🎉</h1>
@@ -249,15 +250,12 @@ export default function App() {
       {activeTab === 'admin' && (
         <div style={{ padding: '20px 15px', color: 'white', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           
-          {/* ایڈمن پورٹل کا ہیڈر (تصویر #2 کے مطابق) */}
           <div style={{ textAlign: 'center', marginBottom: '30px', marginTop: '10px' }}>
             <h2 style={{ fontSize: '30px', margin: '0', fontWeight: 'bold' }}>Ghar Ka Dawakhana 🌿</h2>
             <p style={{ margin: '5px 0 0 0', fontSize: '18px', opacity: 0.9 }}>Admin Portal</p>
           </div>
 
-          {/* ایڈمن ڈیش بورڈ کے مخصوص اوول سفید بٹنز (تصویر #2 کے عین مطابق) */}
           <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '18px', alignItems: 'center' }}>
-            
             <button onClick={() => setAdminSubTab('dashboard')} style={styles.adminPortalBtn}>
               Dashboard 🏠
             </button>
@@ -279,7 +277,6 @@ export default function App() {
             </button>
           </div>
 
-          {/* ایڈمن کی ورکنگ ونڈو (مختلف آپشنز کے لیے) */}
           <div style={{ width: '100%', marginTop: '30px', backgroundColor: '#ffffff', color: '#333', borderRadius: '15px', padding: '15px', direction: 'rtl' }}>
             
             {adminSubTab === 'dashboard' && (
@@ -327,7 +324,6 @@ export default function App() {
   );
 }
 
-// سٹائلز (تصاویر کے عین مطابق)
 const styles = {
   pillBtnLight: {
     backgroundColor: '#f1f8e9',
