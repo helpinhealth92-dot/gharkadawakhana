@@ -2,10 +2,19 @@
 
 import { useRouter } from "next/navigation";
 
-
 export default function AdminDashboard(){
 
   const router = useRouter();
+
+
+  function logout(){
+
+    localStorage.removeItem("adminLogin");
+
+    router.push("/admin/login");
+
+  }
+
 
 
   return (
@@ -16,9 +25,9 @@ export default function AdminDashboard(){
 
         minHeight:"100vh",
 
-        background:"#f1f8e9",
+        background:"#f5fff5",
 
-        padding:"40px",
+        padding:"30px",
 
         direction:"rtl"
 
@@ -27,27 +36,82 @@ export default function AdminDashboard(){
     >
 
 
-      <h1
+      <header
 
         style={{
 
-          textAlign:"center",
+          background:"#1b5e20",
 
-          color:"#1b5e20"
+          color:"white",
+
+          padding:"20px",
+
+          borderRadius:"20px",
+
+          display:"flex",
+
+          justifyContent:"space-between",
+
+          alignItems:"center"
 
         }}
 
       >
 
-        🌿 Ghar Ka Dawakhana Admin Panel
 
-      </h1>
+        <h1>
+
+          🌿 Ghar Ka Dawakhana
+
+          <br/>
+
+          Admin Panel
+
+        </h1>
 
 
 
-      <div
+        <button
+
+          onClick={logout}
+
+          style={{
+
+            background:"white",
+
+            color:"#1b5e20",
+
+            border:"none",
+
+            padding:"12px 25px",
+
+            borderRadius:"25px",
+
+            cursor:"pointer",
+
+            fontWeight:"bold"
+
+          }}
+
+        >
+
+          Logout
+
+        </button>
+
+
+
+      </header>
+
+
+
+
+
+      <section
 
         style={{
+
+          marginTop:"40px",
 
           display:"grid",
 
@@ -55,9 +119,7 @@ export default function AdminDashboard(){
 
           "repeat(auto-fit,minmax(250px,1fr))",
 
-          gap:"25px",
-
-          marginTop:"40px"
+          gap:"25px"
 
         }}
 
@@ -65,49 +127,82 @@ export default function AdminDashboard(){
 
 
 
-        <button
 
-          onClick={()=>router.push("/admin/products")}
+        <DashboardCard
 
-          style={cardButton}
+          title="📦 Manage Products"
 
-        >
+          text="مصنوعات دیکھیں، تبدیل کریں"
 
-          📦 Manage Products
+          click={()=>router.push("/admin/products")}
 
-          <br/>
-
-          مصنوعات کا انتظام
-
-        </button>
+        />
 
 
 
 
-        <button
+        <DashboardCard
 
-          onClick={()=>router.push("/products")}
+          title="➕ Add Product"
 
-          style={cardButton}
+          text="نئی مصنوعات شامل کریں"
 
-        >
+          click={()=>router.push("/admin/products")}
 
-          🛒 View Website Products
-
-          <br/>
-
-          مصنوعات دیکھیں
-
-        </button>
+        />
 
 
 
 
-      </div>
+
+        <DashboardCard
+
+          title="✏️ Edit Products"
+
+          text="نام، قیمت، وزن تبدیل کریں"
+
+          click={()=>router.push("/admin/products")}
+
+        />
+
+
+
+
+
+        <DashboardCard
+
+          title="🛒 Website Products"
+
+          text="اصل ویب سائٹ دیکھیں"
+
+          click={()=>router.push("/products")}
+
+        />
+
+
+
+
+
+        <DashboardCard
+
+          title="📋 Orders"
+
+          text="آرڈرز کا انتظام"
+
+          click={()=>alert("Orders System Coming Soon")}
+
+        />
+
+
+
+
+
+      </section>
 
 
 
     </main>
+
 
   );
 
@@ -115,22 +210,70 @@ export default function AdminDashboard(){
 
 
 
-const cardButton={
 
-  padding:"30px",
+function DashboardCard({
 
-  background:"white",
+title,
 
-  border:"none",
+text,
 
-  borderRadius:"25px",
+click
 
-  boxShadow:"0 8px 25px #ccc",
+}){
 
-  color:"#1b5e20",
 
-  fontSize:"20px",
+return (
 
-  cursor:"pointer"
+<div
 
-};
+onClick={click}
+
+style={{
+
+background:"white",
+
+padding:"30px",
+
+borderRadius:"25px",
+
+boxShadow:"0 8px 25px #ddd",
+
+cursor:"pointer",
+
+textAlign:"center",
+
+border:"1px solid #e0e0e0"
+
+}}
+
+>
+
+
+<h2
+
+style={{
+
+color:"#1b5e20"
+
+}}
+
+>
+
+{title}
+
+</h2>
+
+
+<p>
+
+{text}
+
+</p>
+
+
+</div>
+
+);
+
+
+}
