@@ -7,22 +7,36 @@ import { useRouter } from "next/navigation";
 
 export default function Checkout(){
 
-const { cart } = useCart();
+const {cart}=useCart();
 
-const router = useRouter();
-
-
-const [payment,setPayment] = useState("Cash On Delivery");
+const router=useRouter();
 
 
-const [form,setForm] = useState({
+const [payment,setPayment]=useState("Cash On Delivery");
 
+
+const [form,setForm]=useState({
 name:"",
 phone:"",
 address:"",
 city:""
-
 });
+
+
+
+const total = cart.reduce(
+(sum,item)=>{
+
+let price =
+Number(
+item.price?.replace(/\D/g,"")
+) || 0;
+
+return sum + (price * (item.quantity || 1));
+
+},
+0
+);
 
 
 
@@ -30,33 +44,42 @@ function submitOrder(){
 
 
 let message =
-"نیا آرڈر - گھر کا دَواخانہ%0A%0A";
+"🌿 گھر کا دَواخانہ نیا آرڈر%0A%0A";
 
 
-
-cart.forEach((item)=>{
-
+cart.forEach((item,index)=>{
 
 message +=
 
-`مصنوعہ: ${item.name}%0A
-وزن: ${item.weight}%0A
-قیمت: ${item.price}%0A
-مقدار: ${item.quantity}%0A%0A`;
+`${index+1})
+${item.name}
+وزن: ${item.weight}
+قیمت: ${item.price}
+مقدار: ${item.quantity}
 
-
+`;
 
 });
 
 
-
 message +=
 
-`نام: ${form.name}%0A
-فون: ${form.phone}%0A
-پتہ: ${form.address}%0A
-شہر: ${form.city}%0A
-ادائیگی: ${payment}`;
+`کل رقم: ${total} روپے
+
+نام:
+${form.name}
+
+فون:
+${form.phone}
+
+پتہ:
+${form.address}
+
+شہر:
+${form.city}
+
+ادائیگی:
+${payment}`;
 
 
 
@@ -98,10 +121,79 @@ padding:"30px"
 
 
 <h1>
-
-📝 آرڈر مکمل کریں
-
+📝 آرڈر کی تفصیل
 </h1>
+
+
+
+<div
+
+style={{
+
+background:"white",
+
+padding:"25px",
+
+borderRadius:"20px",
+
+marginBottom:"20px"
+
+}}
+
+>
+
+<h2>
+🛒 مصنوعات
+</h2>
+
+
+
+{
+cart.map((item,index)=>(
+
+
+<div
+key={index}
+style={{
+borderBottom:"1px solid #ddd",
+padding:"10px"
+}}
+>
+
+<p>
+🌿 {item.name}
+</p>
+
+<p>
+وزن: {item.weight}
+</p>
+
+<p>
+قیمت: {item.price}
+</p>
+
+<p>
+مقدار: {item.quantity}
+</p>
+
+
+</div>
+
+
+))
+
+}
+
+
+
+<h2>
+کل رقم: {total} روپے
+</h2>
+
+
+</div>
+
+
 
 
 
@@ -120,12 +212,17 @@ borderRadius:"20px"
 >
 
 
+<h2>
+کسٹمر کی معلومات
+</h2>
+
+
 
 <input
 
-placeholder="نام"
-
 style={inputStyle}
+
+placeholder="نام"
 
 onChange={(e)=>
 
@@ -149,9 +246,9 @@ name:e.target.value
 
 <input
 
-placeholder="موبائل نمبر"
-
 style={inputStyle}
+
+placeholder="موبائل نمبر"
 
 onChange={(e)=>
 
@@ -175,9 +272,9 @@ phone:e.target.value
 
 <textarea
 
-placeholder="مکمل پتہ"
-
 style={inputStyle}
+
+placeholder="مکمل پتہ"
 
 onChange={(e)=>
 
@@ -201,9 +298,9 @@ address:e.target.value
 
 <input
 
-placeholder="شہر"
-
 style={inputStyle}
+
+placeholder="شہر"
 
 onChange={(e)=>
 
@@ -221,12 +318,10 @@ city:e.target.value
 
 
 
+
 <h3>
-
 ادائیگی کا طریقہ
-
 </h3>
-
 
 
 <label>
@@ -250,7 +345,6 @@ onChange={()=>setPayment("Cash On Delivery")}
 <br/>
 
 
-
 <label>
 
 <input
@@ -270,7 +364,6 @@ onChange={()=>setPayment("EasyPaisa")}
 
 
 <br/>
-
 
 
 <label>
@@ -317,14 +410,13 @@ fontSize:"18px"
 
 >
 
-آرڈر کنفرم کریں
+✅ آرڈر کنفرم کریں
 
 </button>
 
 
 
 </div>
-
 
 
 </main>
