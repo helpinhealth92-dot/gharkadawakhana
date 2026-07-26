@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 
 export default function Navbar() {
@@ -124,7 +126,7 @@ const styles = {
     fontSize: '14px',
     display: 'inline-flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justify.Content: 'center',
     gap: '6px',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
     cursor: 'pointer',
