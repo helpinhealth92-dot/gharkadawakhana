@@ -1,119 +1,162 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useCart } from "../app/context/CartContext";
 
-export default function Navbar() {
+
+export default function Navbar(){
 
   const { cart } = useCart();
+
 
   return (
 
     <nav
       style={{
-        background: "#1b5e20",
-        color: "white",
-        padding: "12px 20px",
-        direction: "rtl"
+        direction:"rtl",
+        background:"#1b5e20",
+        color:"white",
+        padding:"15px 25px",
+        display:"flex",
+        justifyContent:"space-between",
+        alignItems:"center",
+        flexWrap:"wrap",
+        gap:"15px"
       }}
     >
 
-      <div
+
+      {/* Logo + Name */}
+
+      <Link
+        href="/"
         style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          flexWrap: "wrap"
+          textDecoration:"none",
+          color:"white",
+          display:"flex",
+          alignItems:"center",
+          gap:"10px"
         }}
       >
 
-        {/* Logo + Name */}
+        <div
+          style={{
+            width:"45px",
+            height:"45px",
+            background:"white",
+            borderRadius:"50%",
+            display:"flex",
+            alignItems:"center",
+            justifyContent:"center",
+            color:"#1b5e20",
+            fontSize:"25px"
+          }}
+        >
+          🌿
+        </div>
+
+
+        <div>
+
+          <h2
+            style={{
+              margin:0,
+              fontSize:"22px"
+            }}
+          >
+            گھر کا دَواخانہ
+          </h2>
+
+
+          <small>
+            حکمت اور قدرتی مصنوعات
+          </small>
+
+        </div>
+
+
+      </Link>
+
+
+
+
+      {/* Menu */}
+
+      <div
+        style={{
+          display:"flex",
+          alignItems:"center",
+          gap:"15px",
+          flexWrap:"wrap"
+        }}
+      >
+
 
         <Link
           href="/"
-          style={{
-            color: "white",
-            textDecoration: "none"
-          }}
+          style={linkStyle}
+        >
+          🏠 ہوم
+        </Link>
+
+
+
+        <Link
+          href="/products"
+          style={linkStyle}
+        >
+          🌿 مصنوعات
+        </Link>
+
+
+
+
+        <Link
+          href="/cart"
+          style={linkStyle}
         >
 
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px"
-            }}
-          >
-
-            <img
-              src="/logo.png"
-              alt="گھر کا دَواخانہ"
-              width="55"
-              height="55"
-              style={{
-                borderRadius: "50%",
-                objectFit: "cover"
-              }}
-            />
-
-
-            <h2>
-              🌿 گھر کا دَواخانہ
-            </h2>
-
-          </div>
+          🛒 کارٹ ({cart.length})
 
         </Link>
 
 
 
-        {/* Menu */}
 
-        <div>
+        <Link
+          href="/contact"
+          style={linkStyle}
+        >
+          📞 رابطہ
+        </Link>
 
-          <Link
-            href="/"
-            style={{
-              color:"white",
-              margin:"8px",
-              textDecoration:"none"
-            }}
-          >
-            ہوم
-          </Link>
-
-
-          <Link
-            href="/products"
-            style={{
-              color:"white",
-              margin:"8px",
-              textDecoration:"none"
-            }}
-          >
-            مصنوعات
-          </Link>
-
-
-          <Link
-            href="/cart"
-            style={{
-              color:"white",
-              margin:"8px",
-              textDecoration:"none"
-            }}
-          >
-            🛒 کارٹ ({cart.length})
-          </Link>
-
-
-        </div>
 
 
       </div>
 
 
+
     </nav>
 
   );
+
 }
+
+
+
+const linkStyle={
+
+color:"white",
+
+textDecoration:"none",
+
+fontSize:"16px",
+
+padding:"8px 12px",
+
+borderRadius:"20px",
+
+background:"rgba(255,255,255,0.15)"
+
+};
