@@ -1,75 +1,215 @@
-export default function Home() {
-  return (
-    <main style={{padding:"30px", fontFamily:"sans-serif", direction:"rtl"}}>
+"use client";
 
-      <header style={{textAlign:"center"}}>
-        <h1 style={{fontSize:"40px"}}>
-          گھر کا دَواخانہ
+import Link from "next/link";
+
+export default function Home() {
+
+  return (
+
+    <main
+      style={{
+        direction:"rtl",
+        fontFamily:"sans-serif",
+        background:"#f5fff5",
+        minHeight:"100vh"
+      }}
+    >
+
+
+      {/* Hero Section */}
+
+      <section
+        style={{
+          background:"#1b5e20",
+          color:"white",
+          padding:"50px 20px",
+          textAlign:"center",
+          borderRadius:"0 0 30px 30px"
+        }}
+      >
+
+        <h1
+          style={{
+            fontSize:"40px",
+            marginBottom:"15px"
+          }}
+        >
+          🌿 گھر کا دَواخانہ
         </h1>
 
-        <p style={{fontSize:"20px"}}>
-          حکیم محمد افضل کے زیرِ نگرانی
-          <br />
-          طبِ یونانی اور قدرتی علاج
+
+        <p
+          style={{
+            fontSize:"20px"
+          }}
+        >
+          خالص جڑی بوٹیاں اور قدرتی ہربل مصنوعات
         </p>
-      </header>
 
-
-      <section style={{
-        marginTop:"40px",
-        padding:"25px",
-        borderRadius:"15px",
-        background:"#f3f3f3",
-        textAlign:"center"
-      }}>
-
-        <h2>
-          صحت کا قدرتی راستہ
-        </h2>
 
         <p>
-          یہاں آپ کو قدرتی مصنوعات،
-          حکمت کے نسخے اور صحت سے متعلق معلومات ملیں گی۔
+          حکمت اور قدرتی علاج کے اصولوں کے مطابق
         </p>
+
+
+        <Link href="/products">
+
+          <button
+            style={{
+              marginTop:"20px",
+              padding:"15px 35px",
+              borderRadius:"30px",
+              border:"none",
+              background:"#ffffff",
+              color:"#1b5e20",
+              fontSize:"18px",
+              cursor:"pointer"
+            }}
+          >
+            🛒 مصنوعات دیکھیں
+          </button>
+
+        </Link>
+
 
       </section>
 
 
-      <section style={{
-        marginTop:"30px",
-        textAlign:"center"
-      }}>
 
-        <h2>
-          ہماری مصنوعات
+      {/* About */}
+
+      <section
+        style={{
+          padding:"30px",
+          textAlign:"center"
+        }}
+      >
+
+        <h2
+          style={{
+            color:"#1b5e20"
+          }}
+        >
+          ہمارے بارے میں
         </h2>
 
-        <p>
-          قدرتی اور معیاری مصنوعات جلد دستیاب ہوں گی۔
+
+        <p
+          style={{
+            lineHeight:"2",
+            fontSize:"18px"
+          }}
+        >
+          گھر کا دَواخانہ میں آپ کو قدرتی جڑی بوٹیاں،
+          ہربل پاؤڈر، تیل اور روایتی حکمت سے متعلق
+          مصنوعات فراہم کی جاتی ہیں۔
         </p>
 
 
-        <a href="/products">
-          <button style={{
-            padding:"12px 25px",
-            fontSize:"18px",
-            borderRadius:"10px",
-            cursor:"pointer"
-          }}>
-            مصنوعات دیکھیں
+      </section>
+
+
+
+
+      {/* Categories */}
+
+      <section
+        style={{
+          display:"grid",
+          gridTemplateColumns:"repeat(auto-fit,minmax(200px,1fr))",
+          gap:"20px",
+          padding:"20px"
+        }}
+      >
+
+
+        <div
+          style={{
+            background:"white",
+            padding:"25px",
+            borderRadius:"20px",
+            textAlign:"center",
+            boxShadow:"0 4px 10px #ddd"
+          }}
+        >
+          🌿
+          <h3>جڑی بوٹیاں</h3>
+          <p>قدرتی پاؤڈر اور سفوف</p>
+        </div>
+
+
+
+        <div
+          style={{
+            background:"white",
+            padding:"25px",
+            borderRadius:"20px",
+            textAlign:"center",
+            boxShadow:"0 4px 10px #ddd"
+          }}
+        >
+          🧴
+          <h3>قدرتی تیل</h3>
+          <p>کلونجی، زیتون اور بادام روغن</p>
+        </div>
+
+
+
+        <div
+          style={{
+            background:"white",
+            padding:"25px",
+            borderRadius:"20px",
+            textAlign:"center",
+            boxShadow:"0 4px 10px #ddd"
+          }}
+        >
+          🍯
+          <h3>ہربل مصنوعات</h3>
+          <p>خالص اور معیاری مصنوعات</p>
+        </div>
+
+
+      </section>
+
+
+
+      {/* WhatsApp */}
+
+      <div
+        style={{
+          textAlign:"center",
+          padding:"30px"
+        }}
+      >
+
+        <a
+          href="https://wa.me/923477357397"
+          target="_blank"
+        >
+
+          <button
+            style={{
+              background:"#25D366",
+              color:"white",
+              border:"none",
+              padding:"15px 40px",
+              borderRadius:"30px",
+              fontSize:"18px"
+            }}
+          >
+            🟢 WhatsApp رابطہ
           </button>
+
         </a>
 
-      </section>
+
+      </div>
 
 
-      <footer style={{
-        marginTop:"50px",
-        textAlign:"center"
-      }}>
-        © گھر کا دَواخانہ
-      </footer>
 
     </main>
+
   );
+
 }
