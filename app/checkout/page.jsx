@@ -2,14 +2,20 @@
 
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
+import { useRouter } from "next/navigation";
 
 
 export default function Checkout(){
 
-const {cart}=useCart();
+const { cart } = useCart();
+
+const router = useRouter();
 
 
-const [form,setForm]=useState({
+const [payment,setPayment] = useState("Cash On Delivery");
+
+
+const [form,setForm] = useState({
 
 name:"",
 phone:"",
@@ -19,45 +25,52 @@ city:""
 });
 
 
+
 function submitOrder(){
 
-let message="نیا آرڈر%0A%0A";
+
+let message =
+"نیا آرڈر - گھر کا دَواخانہ%0A%0A";
+
 
 
 cart.forEach((item)=>{
 
-message +=
-`${item.name}
-وزن: ${item.weight}
-قیمت: ${item.price}
-مقدار: ${item.quantity}
 
-`;
+message +=
+
+`مصنوعہ: ${item.name}%0A
+وزن: ${item.weight}%0A
+قیمت: ${item.price}%0A
+مقدار: ${item.quantity}%0A%0A`;
+
+
 
 });
 
 
+
 message +=
-`نام:
-${form.name}
 
-فون:
-${form.phone}
+`نام: ${form.name}%0A
+فون: ${form.phone}%0A
+پتہ: ${form.address}%0A
+شہر: ${form.city}%0A
+ادائیگی: ${payment}`;
 
-پتہ:
-${form.address}
-
-شہر:
-${form.city}
-
-ادائیگی:
-Cash On Delivery`;
 
 
 window.open(
+
 `https://wa.me/923477357397?text=${message}`,
+
 "_blank"
+
 );
+
+
+
+router.push("/thank-you");
 
 
 }
@@ -66,78 +79,242 @@ window.open(
 
 return(
 
+
 <main
+
 style={{
+
 direction:"rtl",
-padding:"30px",
+
 background:"#f5fff5",
-minHeight:"100vh"
+
+minHeight:"100vh",
+
+padding:"30px"
+
 }}
+
 >
 
 
 <h1>
+
 📝 آرڈر مکمل کریں
+
 </h1>
 
 
 
+<div
+
+style={{
+
+background:"white",
+
+padding:"25px",
+
+borderRadius:"20px"
+
+}}
+
+>
+
+
+
 <input
+
 placeholder="نام"
-onChange={(e)=>setForm({...form,name:e.target.value})}
+
+style={inputStyle}
+
+onChange={(e)=>
+
+setForm({
+
+...form,
+
+name:e.target.value
+
+})
+
+}
+
 />
 
 
+
 <br/><br/>
+
 
 
 <input
+
 placeholder="موبائل نمبر"
-onChange={(e)=>setForm({...form,phone:e.target.value})}
+
+style={inputStyle}
+
+onChange={(e)=>
+
+setForm({
+
+...form,
+
+phone:e.target.value
+
+})
+
+}
+
 />
 
 
+
 <br/><br/>
+
 
 
 <textarea
+
 placeholder="مکمل پتہ"
-onChange={(e)=>setForm({...form,address:e.target.value})}
+
+style={inputStyle}
+
+onChange={(e)=>
+
+setForm({
+
+...form,
+
+address:e.target.value
+
+})
+
+}
+
 />
 
 
+
 <br/><br/>
+
 
 
 <input
+
 placeholder="شہر"
-onChange={(e)=>setForm({...form,city:e.target.value})}
+
+style={inputStyle}
+
+onChange={(e)=>
+
+setForm({
+
+...form,
+
+city:e.target.value
+
+})
+
+}
+
 />
 
 
-<br/><br/>
-
 
 <h3>
+
 ادائیگی کا طریقہ
+
 </h3>
 
 
-<p>
-◉ Cash On Delivery
-</p>
+
+<label>
+
+<input
+
+type="radio"
+
+checked={payment==="Cash On Delivery"}
+
+onChange={()=>setPayment("Cash On Delivery")}
+
+/>
+
+ Cash On Delivery
+
+</label>
+
+
+
+<br/>
+
+
+
+<label>
+
+<input
+
+type="radio"
+
+checked={payment==="EasyPaisa"}
+
+onChange={()=>setPayment("EasyPaisa")}
+
+/>
+
+ EasyPaisa
+
+</label>
+
+
+
+<br/>
+
+
+
+<label>
+
+<input
+
+type="radio"
+
+checked={payment==="JazzCash"}
+
+onChange={()=>setPayment("JazzCash")}
+
+/>
+
+ JazzCash
+
+</label>
+
+
+
+<br/><br/>
 
 
 
 <button
+
 onClick={submitOrder}
+
 style={{
+
 background:"#25D366",
+
 color:"white",
-padding:"15px 40px",
+
 border:"none",
-borderRadius:"30px"
+
+padding:"15px 40px",
+
+borderRadius:"30px",
+
+fontSize:"18px"
+
 }}
+
 >
 
 آرڈر کنفرم کریں
@@ -146,8 +323,29 @@ borderRadius:"30px"
 
 
 
+</div>
+
+
+
 </main>
+
 
 )
 
-  }
+}
+
+
+
+const inputStyle={
+
+width:"100%",
+
+padding:"12px",
+
+borderRadius:"10px",
+
+border:"1px solid #ccc",
+
+fontSize:"16px"
+
+};
