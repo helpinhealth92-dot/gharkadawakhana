@@ -1,9 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useCart } from "../context/CartContext";
 
-export default function Cart() {
+export default function CartPage() {
 
   const { cart, removeFromCart } = useCart();
 
@@ -12,85 +11,41 @@ export default function Cart() {
 
     <main
       style={{
-        padding:"30px",
         direction:"rtl",
-        fontFamily:"sans-serif",
+        minHeight:"100vh",
         background:"#f5fff5",
-        minHeight:"100vh"
+        padding:"30px",
+        fontFamily:"Arial"
       }}
     >
 
-
-      <section
+      <h1
         style={{
-          background:"#1b5e20",
-          color:"white",
-          padding:"25px",
-          borderRadius:"20px",
-          textAlign:"center"
+          textAlign:"center",
+          color:"#1b5e20"
         }}
       >
+        🛒 آپ کا کارٹ
+      </h1>
 
-        <h1>
-          🛒 آپ کا کارٹ
-        </h1>
 
-        <p>
-          کل اشیاء: {cart.length}
+      {
+        cart.length === 0 ?
+
+        <p
+          style={{
+            textAlign:"center",
+            fontSize:"20px"
+          }}
+        >
+          کارٹ خالی ہے
         </p>
 
-      </section>
+
+        :
 
 
-
-      {cart.length === 0 ? (
-
-        <div
-          style={{
-            background:"white",
-            marginTop:"30px",
-            padding:"30px",
-            borderRadius:"20px",
-            textAlign:"center"
-          }}
-        >
-
-          <h2>
-            کارٹ خالی ہے
-          </h2>
-
-
-          <Link href="/products">
-
-            <button
-              style={{
-                background:"#1b5e20",
-                color:"white",
-                padding:"12px 25px",
-                border:"none",
-                borderRadius:"20px"
-              }}
-            >
-              مصنوعات دیکھیں
-            </button>
-
-          </Link>
-
-
-        </div>
-
-
-      ) : (
-
-
-        <div
-          style={{
-            marginTop:"30px"
-          }}
-        >
-
-
-        {cart.map((item,index)=>(
+        cart.map((item,index)=>(
 
 
           <div
@@ -98,70 +53,52 @@ export default function Cart() {
             style={{
               background:"white",
               padding:"20px",
-              marginBottom:"15px",
-              borderRadius:"15px",
-              boxShadow:"0 4px 10px #ddd",
-              display:"flex",
-              justifyContent:"space-between",
-              alignItems:"center"
+              margin:"20px 0",
+              borderRadius:"20px",
+              boxShadow:"0 5px 15px #ddd"
             }}
           >
 
+            <h2 style={{color:"#1b5e20"}}>
+              🌿 {item.name}
+            </h2>
 
-            <h3>
-              🌿 {item}
-            </h3>
+
+            <p>
+              وزن: {item.weight || "منتخب نہیں"}
+            </p>
+
+
+            <p>
+              قیمت: {item.price || "قیمت درج نہیں"}
+            </p>
+
+
+            <p>
+              مقدار: {item.quantity || 1}
+            </p>
 
 
             <button
-              onClick={()=>removeFromCart(index)}
+              onClick={() => removeFromCart(index)}
               style={{
                 background:"#d32f2f",
                 color:"white",
                 border:"none",
-                padding:"10px 15px",
-                borderRadius:"15px"
+                padding:"10px 25px",
+                borderRadius:"20px"
               }}
             >
-              ❌ حذف
+              ❌ ختم کریں
             </button>
 
 
           </div>
 
 
-        ))}
+        ))
 
-
-
-        <a
-          href={`https://wa.me/923477357397?text=میں کارٹ کی مصنوعات کا آرڈر کرنا چاہتا ہوں: ${cart.join(", ")}`}
-          target="_blank"
-        >
-
-          <button
-            style={{
-              width:"100%",
-              marginTop:"20px",
-              background:"#25D366",
-              color:"white",
-              border:"none",
-              padding:"15px",
-              borderRadius:"25px",
-              fontSize:"18px"
-            }}
-          >
-            🟢 WhatsApp پر آرڈر کریں
-          </button>
-
-
-        </a>
-
-
-        </div>
-
-
-      )}
+      }
 
 
     </main>
