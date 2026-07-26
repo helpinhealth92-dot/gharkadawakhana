@@ -10,28 +10,29 @@ export default function Products() {
 
   const products = [
 
-    "ہلدی پاؤڈر",
-    "لہسن پاؤڈر",
-    "ادرک پاؤڈر",
-    "دارچینی پاؤڈر",
-    "زیرہ پاؤڈر",
-    "سونف پاؤڈر",
-    "کلونجی پاؤڈر",
-    "اجوائن پاؤڈر",
-    "میتھی دانہ پاؤڈر",
-    "آملہ پاؤڈر",
-    "اشوگندھا پاؤڈر",
-    "سہانجنا پاؤڈر",
-    "ملیٹھی پاؤڈر",
-    "نیم پاؤڈر",
-    "برہمی پاؤڈر",
-    "سفید موصلی پاؤڈر",
-    "ستاور پاؤڈر",
-    "السی پاؤڈر",
-    "تخم ملنگا",
-    "اسپغول کا چھلکا"
+    {name:"ہلدی پاؤڈر", english:"Turmeric Powder"},
+    {name:"لہسن پاؤڈر", english:"Garlic Powder"},
+    {name:"ادرک پاؤڈر", english:"Ginger Powder"},
+    {name:"دارچینی پاؤڈر", english:"Cinnamon Powder"},
+    {name:"زیرہ پاؤڈر", english:"Cumin Powder"},
+    {name:"سونف پاؤڈر", english:"Fennel Powder"},
+    {name:"کلونجی پاؤڈر", english:"Black Seed Powder"},
+    {name:"اجوائن پاؤڈر", english:"Carom Seed Powder"},
+    {name:"میتھی دانہ پاؤڈر", english:"Fenugreek Powder"},
+    {name:"آملہ پاؤڈر", english:"Amla Powder"},
+    {name:"اشوگندھا پاؤڈر", english:"Ashwagandha Powder"},
+    {name:"سہانجنا پاؤڈر", english:"Moringa Powder"},
+    {name:"ملیٹھی پاؤڈر", english:"Licorice Powder"},
+    {name:"نیم پاؤڈر", english:"Neem Powder"},
+    {name:"برہمی پاؤڈر", english:"Brahmi Powder"},
+    {name:"سفید موصلی پاؤڈر", english:"Safed Musli Powder"},
+    {name:"ستاور پاؤڈر", english:"Shatavari Powder"},
+    {name:"السی پاؤڈر", english:"Flaxseed Powder"},
+    {name:"تخم ملنگا", english:"Basil Seeds"},
+    {name:"اسپغول کا چھلکا", english:"Psyllium Husk"}
 
   ];
+
 
 
   const weights = [
@@ -68,12 +69,14 @@ export default function Products() {
 
 
     const choose =
-      selected[product] || weights[0];
+      selected[product.name] || weights[0];
 
 
     addToCart({
 
-      name: product,
+      name: product.name,
+
+      englishName: product.english,
 
       weight: choose.name,
 
@@ -106,7 +109,7 @@ export default function Products() {
           color:"#1b5e20"
         }}
       >
-        🌿 تمام مصنوعات
+        🌿 تمام مصنوعات / All Products
       </h1>
 
 
@@ -126,9 +129,7 @@ export default function Products() {
 
 
           <div
-
             key={index}
-
             style={{
               background:"white",
               padding:"20px",
@@ -136,7 +137,6 @@ export default function Products() {
               boxShadow:"0 5px 15px #ddd",
               textAlign:"center"
             }}
-
           >
 
 
@@ -157,9 +157,25 @@ export default function Products() {
 
 
 
-            <h2>
-              {product}
+
+            <h2
+              style={{
+                marginBottom:"5px"
+              }}
+            >
+              {product.name}
             </h2>
+
+
+            <p
+              style={{
+                color:"#555",
+                fontSize:"16px"
+              }}
+            >
+              {product.english}
+            </p>
+
 
 
 
@@ -185,7 +201,7 @@ export default function Products() {
 
                   ...selected,
 
-                  [product]:selectedWeight
+                  [product.name]:selectedWeight
 
                 });
 
@@ -219,9 +235,9 @@ export default function Products() {
               {" "}
 
               {
-                selected[product]
+                selected[product.name]
                 ?
-                selected[product].price
+                selected[product.name].price
                 :
                 "300 روپے"
               }
