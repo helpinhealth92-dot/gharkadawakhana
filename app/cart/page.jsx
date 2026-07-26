@@ -1,108 +1,117 @@
 "use client";
 
+import Link from "next/link";
 import { useCart } from "../context/CartContext";
 
-export default function CartPage() {
+export default function CartPage(){
 
-  const { cart, removeFromCart } = useCart();
-
-
-  return (
-
-    <main
-      style={{
-        direction:"rtl",
-        minHeight:"100vh",
-        background:"#f5fff5",
-        padding:"30px",
-        fontFamily:"Arial"
-      }}
-    >
-
-      <h1
-        style={{
-          textAlign:"center",
-          color:"#1b5e20"
-        }}
-      >
-        🛒 آپ کا کارٹ
-      </h1>
+const {cart, removeFromCart}=useCart();
 
 
-      {
-        cart.length === 0 ?
+return(
 
-        <p
-          style={{
-            textAlign:"center",
-            fontSize:"20px"
-          }}
-        >
-          کارٹ خالی ہے
-        </p>
+<main
+style={{
+direction:"rtl",
+padding:"30px",
+background:"#f5fff5",
+minHeight:"100vh"
+}}
+>
 
-
-        :
-
-
-        cart.map((item,index)=>(
+<h1>
+🛒 آپ کا کارٹ
+</h1>
 
 
-          <div
-            key={index}
-            style={{
-              background:"white",
-              padding:"20px",
-              margin:"20px 0",
-              borderRadius:"20px",
-              boxShadow:"0 5px 15px #ddd"
-            }}
-          >
+{
+cart.length===0 ?
 
-            <h2 style={{color:"#1b5e20"}}>
-              🌿 {item.name}
-            </h2>
+<p>
+کارٹ خالی ہے
+</p>
 
+:
 
-            <p>
-              وزن: {item.weight || "منتخب نہیں"}
-            </p>
+cart.map((item,index)=>(
 
+<div
+key={index}
+style={{
+background:"white",
+padding:"20px",
+margin:"15px 0",
+borderRadius:"15px"
+}}
+>
 
-            <p>
-              قیمت: {item.price || "قیمت درج نہیں"}
-            </p>
+<h2>
+🌿 {item.name}
+</h2>
 
+<p>
+وزن: {item.weight}
+</p>
 
-            <p>
-              مقدار: {item.quantity || 1}
-            </p>
+<p>
+قیمت: {item.price}
+</p>
 
-
-            <button
-              onClick={() => removeFromCart(index)}
-              style={{
-                background:"#d32f2f",
-                color:"white",
-                border:"none",
-                padding:"10px 25px",
-                borderRadius:"20px"
-              }}
-            >
-              ❌ ختم کریں
-            </button>
+<p>
+مقدار: {item.quantity}
+</p>
 
 
-          </div>
+<button
+onClick={()=>removeFromCart(index)}
+>
+❌ ختم کریں
+</button>
 
 
-        ))
+</div>
 
-      }
+))
+
+}
 
 
-    </main>
+{
+cart.length>0 &&
 
-  );
+<div
+style={{
+textAlign:"center",
+marginTop:"30px"
+}}
+>
+
+<Link href="/checkout">
+
+<button
+style={{
+background:"#1b5e20",
+color:"white",
+padding:"15px 40px",
+border:"none",
+borderRadius:"30px",
+fontSize:"18px"
+}}
+>
+
+Checkout کریں
+
+</button>
+
+</Link>
+
+</div>
+
+}
+
+
+</main>
+
+)
 
 }
