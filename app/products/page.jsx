@@ -6,7 +6,7 @@ import { useState } from "react";
 
 export default function Products() {
 
-  const { addToCart } = useCart();
+  const { addToCart, cart } = useCart();
   const [message, setMessage] = useState("");
 
   const products = [
@@ -24,22 +24,12 @@ export default function Products() {
     "نیم پاؤڈر",
     "برہمی پاؤڈر",
     "اشوگندھا پاؤڈر",
-    "سہانجنا (مورنگا) پاؤڈر",
+    "سہانجنا پاؤڈر",
     "سفید موصلی پاؤڈر",
     "ستاور پاؤڈر",
     "السی پاؤڈر",
     "تخم ملنگا",
     "اسپغول کا چھلکا",
-    "کالی مرچ پاؤڈر",
-    "لونگ پاؤڈر",
-    "الائچی پاؤڈر",
-    "جائفل پاؤڈر",
-    "گلاب کی پتی پاؤڈر",
-    "ہربل ہاضمہ چورن",
-    "طاقت سفوف",
-    "معجون",
-    "خمیرہ",
-    "جوارش",
     "شہد خالص",
     "زیتون کا تیل",
     "کلونجی کا تیل",
@@ -48,13 +38,13 @@ export default function Products() {
   ];
 
 
-  function addProduct(item) {
+  function addProduct(item){
     addToCart(item);
-    setMessage(`${item} کارٹ میں شامل ہو گیا ہے`);
-
-    setTimeout(() => {
+    setMessage(`${item} کارٹ میں شامل ہو گیا`);
+    
+    setTimeout(()=>{
       setMessage("");
-    }, 2000);
+    },2000);
   }
 
 
@@ -62,53 +52,79 @@ export default function Products() {
 
     <main
       style={{
-        padding:"30px",
+        padding:"20px",
         direction:"rtl",
+        background:"#f5fff5",
+        minHeight:"100vh",
         fontFamily:"sans-serif"
       }}
     >
 
-      <h1 style={{textAlign:"center"}}>
-        گھر کا دَواخانہ
-      </h1>
+      <section
+        style={{
+          background:"#1b5e20",
+          color:"white",
+          padding:"35px",
+          borderRadius:"20px",
+          textAlign:"center",
+          marginBottom:"25px"
+        }}
+      >
 
+        <h1>
+          🌿 گھر کا دَواخانہ
+        </h1>
 
-      <div style={{textAlign:"center", margin:"20px"}}>
+        <p>
+          خالص جڑی بوٹیاں اور قدرتی ہربل مصنوعات
+        </p>
+
 
         <Link href="/cart">
 
           <button
             style={{
-              padding:"12px",
-              borderRadius:"8px"
+              padding:"12px 25px",
+              borderRadius:"25px",
+              border:"none",
+              cursor:"pointer"
             }}
           >
-            🛒 کارٹ کھولیں
+            🛒 کارٹ ({cart.length})
           </button>
 
         </Link>
 
+      </section>
+
+
+
+      {message &&
+
+      <div
+        style={{
+          background:"#d8ffd8",
+          color:"green",
+          padding:"12px",
+          borderRadius:"10px",
+          textAlign:"center",
+          marginBottom:"20px"
+        }}
+      >
+        {message}
       </div>
 
-
-      {message && (
-
-        <p
-          style={{
-            textAlign:"center",
-            color:"green",
-            fontWeight:"bold"
-          }}
-        >
-          {message}
-        </p>
-
-      )}
+      }
 
 
 
-      <h2 style={{textAlign:"center"}}>
-        تمام مصنوعات
+      <h2
+        style={{
+          textAlign:"center",
+          color:"#1b5e20"
+        }}
+      >
+        ہماری مصنوعات
       </h2>
 
 
@@ -128,9 +144,10 @@ export default function Products() {
         <div
           key={index}
           style={{
-            border:"1px solid #ddd",
-            borderRadius:"15px",
+            background:"white",
+            borderRadius:"20px",
             padding:"20px",
+            boxShadow:"0 4px 12px #ddd",
             textAlign:"center"
           }}
         >
@@ -138,25 +155,30 @@ export default function Products() {
 
           <div
             style={{
-              height:"120px",
-              background:"#f3f3f3",
-              borderRadius:"10px",
+              height:"150px",
+              background:"#e8f5e9",
+              borderRadius:"15px",
               display:"flex",
               alignItems:"center",
-              justifyContent:"center"
+              justifyContent:"center",
+              fontSize:"50px"
             }}
           >
-            تصویر یہاں ہوگی
+            🌿
           </div>
 
 
-          <h3>
+          <h3
+            style={{
+              color:"#2e7d32"
+            }}
+          >
             {item}
           </h3>
 
 
           <p>
-            وزن: 100 گرام / 250 گرام / 500 گرام
+            وزن: 100g / 250g / 500g
           </p>
 
 
@@ -171,34 +193,38 @@ export default function Products() {
             target="_blank"
           >
 
-            <button
-              style={{
-                padding:"10px",
-                margin:"5px",
-                borderRadius:"8px"
-              }}
-            >
-              🟢 WhatsApp آرڈر
-            </button>
+          <button
+            style={{
+              background:"#25D366",
+              color:"white",
+              border:"none",
+              padding:"10px",
+              borderRadius:"20px",
+              margin:"5px",
+              cursor:"pointer"
+            }}
+          >
+            WhatsApp آرڈر
+          </button>
 
           </a>
 
 
 
           <button
-
-            onClick={() => addProduct(item)}
-
+            onClick={()=>addProduct(item)}
             style={{
+              background:"#1b5e20",
+              color:"white",
+              border:"none",
               padding:"10px",
+              borderRadius:"20px",
               margin:"5px",
-              borderRadius:"8px"
+              cursor:"pointer"
             }}
-
           >
             🛒 کارٹ میں شامل کریں
           </button>
-
 
 
         </div>
