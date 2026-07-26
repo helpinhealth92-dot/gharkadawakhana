@@ -107,36 +107,22 @@ export default function App() {
   return (
     <div style={{ maxWidth: '450px', margin: 'auto', fontFamily: 'sans-serif', backgroundColor: activeTab === 'admin' ? '#145214' : '#ffffff', minHeight: '100vh' }}>
       
-      {/* ================= 1. اصلی ویب سائٹ ================= */}
+      {/* ================= 1. ویب سائٹ کا اصل ویو ================= */}
       {activeTab !== 'admin' && (
         <div style={{ padding: '15px' }}>
           
-          {/* آپ کا مونوگرام اور ہیڈر (تصویر کے عین مطابق) */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-            
-            {/* اصل مونوگرام (لوگو) */}
-            <div style={{ width: '90px', height: '90px', borderRadius: '50%', border: '3px solid #1b5e20', overflow: 'hidden', backgroundColor: '#f9fbf9', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '5px', boxSizing: 'border-box', textAlign: 'center' }}>
-              <div style={{ fontSize: '9px', fontWeight: 'bold', color: '#1b5e20', borderBottom: '1px solid #1b5e20', width: '100%', paddingBottom: '2px' }}>
-                NATURAL • PURE
-              </div>
-              <div style={{ fontSize: '11px', fontWeight: 'bold', color: '#1b5e20', margin: '2px 0' }}>
-                Herbalist
-              </div>
-              <div style={{ fontSize: '12px', fontWeight: '900', color: '#1b5e20', lineHeight: '1' }}>
-                Afzal Nadeem
-              </div>
-              <div style={{ fontSize: '8px', color: '#2e7d32', marginTop: '2px' }}>
-                گھر کا دواخانہ
-              </div>
-            </div>
-
-            <div style={{ textAlign: 'right' }}>
-              <h2 style={{ color: '#2e7d32', margin: '0', fontSize: '28px', fontFamily: 'Urdu, sans-serif' }}>گھر کا دواخانہ</h2>
-              <p style={{ margin: '2px 0 0 0', color: '#333', fontSize: '17px', fontWeight: 'bold' }}>Herbalist Afzal Nadeem</p>
+          {/* اصلی مونوگرام بالکل ٹاپ پر */}
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '20px' }}>
+            <div style={{ width: '150px', height: '150px', borderRadius: '50%', overflow: 'hidden', border: '3px solid #1b5e20', boxShadow: '0 4px 10px rgba(0,0,0,0.15)', backgroundColor: '#fff' }}>
+              <img 
+                src="/logo.png" 
+                alt="Herbalist Afzal Nadeem Logo" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
             </div>
           </div>
 
-          {/* مین بٹنز */}
+          {/* نیویگیشن بٹنز */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center', marginBottom: '25px' }}>
             
             <div style={{ display: 'flex', gap: '15px', width: '100%', justifyContent: 'center' }}>
@@ -246,7 +232,7 @@ export default function App() {
       )}
 
 
-      {/* ================= 2. ایڈمن پورٹل (تصویر #2 کے عین مطابق) ================= */}
+      {/* ================= 2. ایڈمن پورٹل ================= */}
       {activeTab === 'admin' && (
         <div style={{ padding: '20px 15px', color: 'white', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           
