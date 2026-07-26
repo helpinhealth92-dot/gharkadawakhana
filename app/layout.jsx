@@ -3,8 +3,17 @@ import { CartProvider } from "./context/CartContext";
 import Navbar from "../components/Navbar";
 
 export const metadata = {
-  title: "گھر کا دَواخانہ",
-  description: "قدرتی جڑی بوٹیاں اور ہربل مصنوعات",
+  title: "گھر کا دَواخانہ | قدرتی جڑی بوٹیاں اور ہربل مصنوعات",
+  description:
+    "گھر کا دَواخانہ پر خالص جڑی بوٹیاں، ہربل پاؤڈر، قدرتی تیل اور حکمت سے متعلق مصنوعات حاصل کریں۔",
+  keywords: [
+    "گھر کا دَواخانہ",
+    "جڑی بوٹیاں",
+    "ہربل مصنوعات",
+    "ہلدی پاؤڈر",
+    "کلونجی",
+    "قدرتی علاج"
+  ],
 };
 
 export default function RootLayout({ children }) {
