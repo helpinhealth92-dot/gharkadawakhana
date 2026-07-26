@@ -6,88 +6,43 @@ import Image from "next/image";
 export default function Footer() {
 
   return (
+    <footer className="footer">
 
-    <footer
-      style={{
-        direction:"rtl",
-        background:"#0b3d1b",
-        color:"#fff",
-        padding:"45px 25px 20px",
-        marginTop:"50px"
-      }}
-    >
-
-      <div
-        style={{
-          maxWidth:"1200px",
-          margin:"auto",
-          display:"grid",
-          gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",
-          gap:"30px",
-          alignItems:"start"
-        }}
-      >
+      <div className="footer-container">
 
 
-        {/* Brand */}
+        <div className="footer-box brand">
 
-        <div>
+          <Image
+            src="/logo.png"
+            width={75}
+            height={75}
+            alt="Ghar Ka Dawakhana"
+            className="footer-logo"
+          />
 
-          <div
-            style={{
-              display:"flex",
-              alignItems:"center",
-              gap:"12px"
-            }}
-          >
+          <h2>گھر کا دَواخانہ</h2>
 
-            <Image
-              src="/logo.png"
-              width={70}
-              height={70}
-              alt="Logo"
-              style={{
-                borderRadius:"50%"
-              }}
-            />
-
-
-            <div>
-
-              <h2
-                style={{
-                  margin:"0",
-                  fontSize:"24px"
-                }}
-              >
-                گھر کا دَواخانہ
-              </h2>
-
-              <p
-                style={{
-                  margin:"5px 0",
-                  color:"#d8e8d8"
-                }}
-              >
-                Herbalist Afzal Nadeem
-              </p>
-
-            </div>
-
-          </div>
-
-
-          <p
-            style={{
-              lineHeight:"2",
-              marginTop:"20px",
-              color:"#e6e6e6"
-            }}
-          >
-            دیسی جڑی بوٹیاں، قدرتی ہربل مصنوعات
-            اور حکمت کے اصولوں کے مطابق معیاری مصنوعات۔
+          <p>
+            Herbalist Afzal Nadeem
           </p>
 
+          <span>
+            دیسی جڑی بوٹیاں اور قدرتی ہربل مصنوعات
+          </span>
+
+        </div>
+
+
+
+
+        <div className="footer-box">
+
+          <h3>اہم لنکس</h3>
+
+          <Link href="/">Home</Link>
+          <Link href="/products">Products</Link>
+          <Link href="/contact">Contact Us</Link>
 
         </div>
 
@@ -95,110 +50,34 @@ export default function Footer() {
 
 
 
-        {/* Links */}
+        <div className="footer-box">
 
-        <div>
+          <h3>رابطہ کریں</h3>
 
-          <h3
-            style={{
-              color:"#d4af37"
-            }}
-          >
-            اہم لنکس
-          </h3>
-
-
-          <p>
-            <Link href="/" style={link}>
-              🏠 Home
-            </Link>
-          </p>
-
-
-          <p>
-            <Link href="/products" style={link}>
-              🌿 Products
-            </Link>
-          </p>
-
-
-          <p>
-            <Link href="/contact" style={link}>
-              📞 Contact Us
-            </Link>
-          </p>
-
-
-        </div>
-
-
-
-
-
-        {/* Contact */}
-
-        <div>
-
-          <h3
-            style={{
-              color:"#d4af37"
-            }}
-          >
-            رابطہ کریں
-          </h3>
-
-
-          <p>
-            📱 03477357397
-          </p>
-
+          <p>📞 03477357397</p>
 
           <a
             href="https://wa.me/923477357397"
-            target="_blank"
-            style={{
-              background:"#25D366",
-              color:"#fff",
-              padding:"10px 25px",
-              borderRadius:"30px",
-              textDecoration:"none",
-              display:"inline-block",
-              marginTop:"10px"
-            }}
+            className="whatsapp"
           >
             WhatsApp
           </a>
 
-
         </div>
 
 
 
 
 
-        {/* Qualification */}
+        <div className="footer-box">
 
-        <div>
-
-          <h3
-            style={{
-              color:"#d4af37"
-            }}
-          >
-            معلومات
-          </h3>
-
+          <h3>معلومات</h3>
 
           <p>
             Qualified B.U.M.S, MPhil
           </p>
 
-
-          <p
-            style={{
-              lineHeight:"1.8"
-            }}
-          >
+          <p>
             Ⓡ Registered with
             <br/>
             National Council for Tibb
@@ -206,46 +85,117 @@ export default function Footer() {
             Islamabad (NCT)
           </p>
 
-
         </div>
-
 
 
       </div>
 
 
 
+      <div className="copyright">
 
-
-      <div
-        style={{
-          borderTop:"1px solid rgba(255,255,255,.3)",
-          marginTop:"35px",
-          paddingTop:"15px",
-          textAlign:"center",
-          color:"#ddd"
-        }}
-      >
-
-        © 2026 گھر کا دَواخانہ  
+        © 2026 گھر کا دَواخانہ
         <br/>
         تمام حقوق محفوظ ہیں
 
       </div>
 
 
+
+      <style jsx>{`
+
+      .footer{
+        background:#073b18;
+        color:white;
+        padding:40px 20px 20px;
+        margin-top:40px;
+      }
+
+
+      .footer-container{
+        max-width:1200px;
+        margin:auto;
+        display:flex;
+        justify-content:space-between;
+        gap:25px;
+        flex-wrap:wrap;
+        text-align:center;
+      }
+
+
+      .footer-box{
+        flex:1;
+        min-width:220px;
+        padding:20px;
+      }
+
+
+      .footer-box h3{
+        color:#d4af37;
+        margin-bottom:20px;
+      }
+
+
+      .footer-box a{
+        display:block;
+        color:white;
+        text-decoration:none;
+        margin:12px;
+        font-size:17px;
+      }
+
+
+      .footer-box p,
+      .footer-box span{
+        line-height:1.8;
+      }
+
+
+      .footer-logo{
+        border-radius:50%;
+        margin-bottom:10px;
+      }
+
+
+      .brand h2{
+        margin:5px;
+      }
+
+
+      .whatsapp{
+        background:#25D366;
+        padding:10px 25px;
+        border-radius:30px;
+        display:inline-block !important;
+      }
+
+
+      .copyright{
+        border-top:1px solid #ffffff55;
+        margin-top:25px;
+        padding-top:20px;
+        text-align:center;
+      }
+
+
+
+      @media(max-width:700px){
+
+        .footer-container{
+          flex-direction:column;
+          align-items:center;
+        }
+
+
+        .footer-box{
+          width:100%;
+        }
+
+      }
+
+      `}</style>
+
+
     </footer>
-
   );
-
 }
-
-
-
-const link = {
-
-color:"#fff",
-
-textDecoration:"none"
-
-};
