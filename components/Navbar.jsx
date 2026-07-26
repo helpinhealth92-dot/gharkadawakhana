@@ -18,15 +18,12 @@ export default function Navbar(){
   const [open,setOpen] = useState(false);
 
 
-
   useEffect(()=>{
 
     const login = localStorage.getItem("adminLogin");
 
     if(login){
-
       setAdmin(true);
-
     }
 
   },[]);
@@ -39,13 +36,15 @@ export default function Navbar(){
 
     setAdmin(false);
 
+    setOpen(false);
+
     router.push("/");
 
   }
 
 
 
-  return (
+return (
 
 <header
 
@@ -53,9 +52,9 @@ style={{
 
 direction:"rtl",
 
-background:"#ffffff",
+background:"#fff",
 
-boxShadow:"0 3px 18px rgba(0,0,0,0.08)",
+boxShadow:"0 3px 18px rgba(0,0,0,.08)",
 
 position:"sticky",
 
@@ -76,7 +75,7 @@ maxWidth:"1200px",
 
 margin:"auto",
 
-padding:"10px 20px",
+padding:"15px 20px",
 
 display:"flex",
 
@@ -84,9 +83,9 @@ alignItems:"center",
 
 justifyContent:"space-between",
 
-gap:"15px",
+flexWrap:"wrap",
 
-flexWrap:"wrap"
+gap:"15px"
 
 }}
 
@@ -95,9 +94,7 @@ flexWrap:"wrap"
 
 {/* LOGO */}
 
-<Link
-
-href="/"
+<Link href="/"
 
 style={{
 
@@ -133,7 +130,7 @@ width={55}
 
 height={55}
 
-alt="Logo"
+alt="logo"
 
 style={{
 
@@ -146,10 +143,9 @@ borderRadius:"50%"
 
 <div>
 
-
 <h2 style={{margin:0}}>
 
-گھر کا دَواخانہ
+گھر کا دواخانہ
 
 </h2>
 
@@ -183,9 +179,9 @@ display:"flex",
 
 gap:"8px",
 
-flexWrap:"wrap",
+alignItems:"center",
 
-alignItems:"center"
+flexWrap:"wrap"
 
 }}
 
@@ -195,8 +191,6 @@ alignItems:"center"
 <NavItem href="/" text="🏠 Home"/>
 
 
-<NavItem href="/products" text="🌿 Products"/>
-
 
 <NavItem href="/contact" text="📞 Contact"/>
 
@@ -204,7 +198,7 @@ alignItems:"center"
 
 
 
-{/* ADMIN */}
+{/* ADMIN BUTTON - PRODUCTS KI JAGAH */}
 
 {
 
@@ -212,7 +206,11 @@ admin ?
 
 <div
 
-style={{position:"relative"}}
+style={{
+
+position:"relative"
+
+}}
 
 >
 
@@ -221,7 +219,7 @@ style={{position:"relative"}}
 
 onClick={()=>setOpen(!open)}
 
-style={adminBtn}
+style={adminButton}
 
 >
 
@@ -231,51 +229,27 @@ style={adminBtn}
 
 
 
-
 {
 
 open &&
 
 <div
 
-style={{
-
-position:"absolute",
-
-top:"45px",
-
-right:0,
-
-background:"white",
-
-width:"220px",
-
-borderRadius:"15px",
-
-boxShadow:"0 8px 25px #ccc",
-
-padding:"10px",
-
-zIndex:2000
-
-}}
+style={dropdown}
 
 >
 
 
-<MenuLink href="/admin/dashboard" text="📊 Dashboard"/>
+<MenuItem href="/admin/dashboard" text="📊 Dashboard"/>
 
 
-<MenuLink href="/admin/products" text="➕ Add Product"/>
+<MenuItem href="/admin/products" text="➕ Add Product"/>
 
 
-<MenuLink href="/admin/products" text="📦 Manage Products"/>
+<MenuItem href="/admin/products" text="📦 Manage Products"/>
 
 
-<MenuLink href="/admin/products" text="✏️ Edit Products"/>
-
-
-<MenuLink href="/admin/orders" text="📋 Orders"/>
+<MenuItem href="/admin/products" text="✏️ Edit Products"/>
 
 
 
@@ -283,7 +257,7 @@ zIndex:2000
 
 onClick={logout}
 
-style={logoutBtn}
+style={logoutButton}
 
 >
 
@@ -292,9 +266,7 @@ style={logoutBtn}
 </button>
 
 
-
 </div>
-
 
 }
 
@@ -304,20 +276,22 @@ style={logoutBtn}
 
 :
 
-<NavItem
-
-href="/admin/login"
-
-text="🔐 Admin Login"
-
-/>
+<NavItem href="/admin/login" text="🔐 Admin Login"/>
 
 }
 
 
 
 
+{/* PRODUCTS - ADMIN KI PURANI JAGAH */}
+
+<NavItem href="/products" text="🌿 Products"/>
+
+
+
+
 </div>
+
 
 
 
@@ -354,7 +328,6 @@ fontWeight:"bold"
 
 🛒 Cart ({cart.length})
 
-
 </div>
 
 
@@ -367,7 +340,6 @@ fontWeight:"bold"
 
 </header>
 
-
 );
 
 }
@@ -375,10 +347,9 @@ fontWeight:"bold"
 
 
 
-
 function NavItem({href,text}){
 
-return (
+return(
 
 <Link
 
@@ -388,11 +359,11 @@ style={{
 
 textDecoration:"none",
 
-color:"#1b5e20",
-
 background:"#f1f8e9",
 
-padding:"9px 15px",
+color:"#1b5e20",
+
+padding:"10px 18px",
 
 borderRadius:"25px",
 
@@ -412,10 +383,9 @@ fontWeight:"700"
 
 
 
+function MenuItem({href,text}){
 
-function MenuLink({href,text}){
-
-return (
+return(
 
 <Link
 
@@ -427,9 +397,9 @@ display:"block",
 
 padding:"10px",
 
-textDecoration:"none",
-
 color:"#1b5e20",
+
+textDecoration:"none",
 
 fontWeight:"bold"
 
@@ -448,33 +418,57 @@ fontWeight:"bold"
 
 
 
-const adminBtn={
+const adminButton={
 
 background:"#1b5e20",
 
-color:"white",
+color:"#fff",
 
 border:"none",
 
-padding:"10px 15px",
+padding:"12px 22px",
 
-borderRadius:"25px",
+borderRadius:"30px",
 
-cursor:"pointer",
+fontWeight:"bold",
 
-fontWeight:"bold"
+cursor:"pointer"
 
 };
 
 
 
-const logoutBtn={
+const dropdown={
+
+position:"absolute",
+
+top:"50px",
+
+right:0,
+
+background:"#fff",
+
+width:"230px",
+
+padding:"15px",
+
+borderRadius:"20px",
+
+boxShadow:"0 10px 30px #aaa",
+
+zIndex:5000
+
+};
+
+
+
+const logoutButton={
 
 width:"100%",
 
 background:"#c62828",
 
-color:"white",
+color:"#fff",
 
 border:"none",
 
@@ -482,8 +476,8 @@ padding:"10px",
 
 borderRadius:"20px",
 
-cursor:"pointer",
+fontWeight:"bold",
 
-fontWeight:"bold"
+cursor:"pointer"
 
 };
