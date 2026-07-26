@@ -1,14 +1,21 @@
 "use client";
 
+import { useState } from "react";
 import { useCart } from "../context/CartContext";
 
 export default function Products() {
 
   const { addToCart } = useCart();
 
+  const weights = [
+    "100 گرام",
+    "250 گرام",
+    "500 گرام",
+    "1 کلو"
+  ];
+
 
   const products = [
-
     "ہلدی پاؤڈر",
     "لہسن پاؤڈر",
     "ادرک پاؤڈر",
@@ -18,34 +25,35 @@ export default function Products() {
     "کلونجی پاؤڈر",
     "اجوائن پاؤڈر",
     "میتھی دانہ پاؤڈر",
-    "ملیٹھی پاؤڈر",
     "آملہ پاؤڈر",
-    "نیم پاؤڈر",
-    "برہمی پاؤڈر",
     "اشوگندھا پاؤڈر",
-    "سہانجنا پاؤڈر",
-    "سفید موصلی پاؤڈر",
-    "ستاور پاؤڈر",
-    "السی پاؤڈر",
-    "تخم ملنگا",
-    "اسپغول کا چھلکا",
-    "کالی مرچ پاؤڈر",
-    "لونگ پاؤڈر",
-    "الائچی پاؤڈر",
-    "جائفل پاؤڈر",
-    "گلاب کی پتی پاؤڈر",
-    "ہربل ہاضمہ چورن",
-    "طاقت سفوف",
-    "معجون",
-    "خمیرہ",
-    "جوارش",
-    "شہد خالص",
-    "زیتون کا تیل",
-    "کلونجی کا تیل",
-    "بادام روغن",
-    "گولڈن ملک ہربل مکس"
-
+    "سہانجنا پاؤڈر"
   ];
+
+
+  const [selectedWeight, setSelectedWeight] = useState({});
+
+
+  function addProduct(product){
+
+    const weight =
+      selectedWeight[product] || "100 گرام";
+
+
+    addToCart({
+
+      name: product,
+
+      weight: weight,
+
+      price: "",
+
+      quantity: 1
+
+    });
+
+  }
+
 
 
   return (
@@ -53,9 +61,9 @@ export default function Products() {
     <main
       style={{
         direction:"rtl",
-        padding:"30px",
         background:"#f5fff5",
-        minHeight:"100vh"
+        minHeight:"100vh",
+        padding:"30px"
       }}
     >
 
@@ -77,73 +85,112 @@ export default function Products() {
         }}
       >
 
-      {products.map((product,index)=>(
-
-        <div
-          key={index}
-          style={{
-            background:"white",
-            padding:"20px",
-            borderRadius:"20px",
-            boxShadow:"0 5px 15px #ddd",
-            textAlign:"center"
-          }}
-        >
+      {
+        products.map((product,index)=>(
 
           <div
+            key={index}
             style={{
-              height:"130px",
-              background:"#e8f5e9",
-              borderRadius:"15px",
-              display:"flex",
-              alignItems:"center",
-              justifyContent:"center",
-              fontSize:"45px"
+              background:"white",
+              padding:"20px",
+              borderRadius:"20px",
+              boxShadow:"0 5px 15px #ddd",
+              textAlign:"center"
             }}
           >
-            تصویر بعد میں
+
+            <div
+              style={{
+                height:"120px",
+                background:"#e8f5e9",
+                borderRadius:"15px",
+                display:"flex",
+                justifyContent:"center",
+                alignItems:"center"
+              }}
+            >
+              🌿 تصویر بعد میں
+            </div>
+
+
+            <h2>
+              {product}
+            </h2>
+
+
+            <p>
+              وزن منتخب کریں:
+            </p>
+
+
+            <select
+
+              value={
+                selectedWeight[product] || "100 گرام"
+              }
+
+              onChange={(e)=>
+
+                setSelectedWeight({
+
+                  ...selectedWeight,
+
+                  [product]: e.target.value
+
+                })
+
+              }
+
+              style={{
+                padding:"10px",
+                borderRadius:"10px",
+                width:"100%"
+              }}
+
+            >
+
+            {
+              weights.map((w,i)=>(
+
+                <option key={i}>
+                  {w}
+                </option>
+
+              ))
+            }
+
+            </select>
+
+
+
+            <p>
+              قیمت: بعد میں درج ہوگی
+            </p>
+
+
+
+            <button
+
+              onClick={()=>addProduct(product)}
+
+              style={{
+                background:"#1b5e20",
+                color:"white",
+                border:"none",
+                padding:"12px 25px",
+                borderRadius:"25px",
+                marginTop:"10px"
+              }}
+
+            >
+              🛒 کارٹ میں شامل کریں
+            </button>
+
+
           </div>
 
-
-          <h2>
-            {product}
-          </h2>
-
-
-          <p>
-            100 گرام — قیمت: ______
-          </p>
-
-          <p>
-            250 گرام — قیمت: ______
-          </p>
-
-          <p>
-            500 گرام — قیمت: ______
-          </p>
-
-          <p>
-            1 کلو — قیمت: ______
-          </p>
-
-
-          <button
-            onClick={()=>addToCart(product)}
-            style={{
-              background:"#1b5e20",
-              color:"white",
-              border:"none",
-              padding:"12px 25px",
-              borderRadius:"25px"
-            }}
-          >
-            🛒 کارٹ میں شامل کریں
-          </button>
-
-
-        </div>
-
-      ))}
+        ))
+      }
 
 
       </div>
