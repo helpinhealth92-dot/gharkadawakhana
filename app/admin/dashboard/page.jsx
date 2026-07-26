@@ -5,23 +5,10 @@ import { useRouter } from "next/navigation";
 
 export default function AdminDashboard(){
 
-
   const router = useRouter();
 
 
-
-  function logout(){
-
-    localStorage.removeItem("adminLogin");
-
-    router.push("/admin/login");
-
-  }
-
-
-
   return (
-
 
     <main
 
@@ -31,7 +18,7 @@ export default function AdminDashboard(){
 
         background:"#f1f8e9",
 
-        padding:"30px",
+        padding:"40px",
 
         direction:"rtl"
 
@@ -40,14 +27,37 @@ export default function AdminDashboard(){
     >
 
 
+      <h1
+
+        style={{
+
+          textAlign:"center",
+
+          color:"#1b5e20"
+
+        }}
+
+      >
+
+        🌿 Ghar Ka Dawakhana Admin Panel
+
+      </h1>
+
+
 
       <div
 
         style={{
 
-          maxWidth:"1000px",
+          display:"grid",
 
-          margin:"auto"
+          gridTemplateColumns:
+
+          "repeat(auto-fit,minmax(250px,1fr))",
+
+          gap:"25px",
+
+          marginTop:"40px"
 
         }}
 
@@ -55,190 +65,38 @@ export default function AdminDashboard(){
 
 
 
-        <h1
+        <button
 
-          style={{
+          onClick={()=>router.push("/admin/products")}
 
-            textAlign:"center",
-
-            color:"#1b5e20",
-
-            marginBottom:"30px"
-
-          }}
+          style={cardButton}
 
         >
 
-          🌿 Ghar Ka Dawakhana Admin Panel
+          📦 Manage Products
 
-        </h1>
+          <br/>
 
+          مصنوعات کا انتظام
 
-
-
-        <div
-
-          style={{
-
-            display:"grid",
-
-            gridTemplateColumns:
-            "repeat(auto-fit,minmax(250px,1fr))",
-
-            gap:"20px"
-
-          }}
-
-        >
-
-
-
-
-          <div style={cardStyle}>
-
-            <h2>📦 مصنوعات</h2>
-
-            <p>
-              مصنوعات شامل کریں، قیمت تبدیل کریں اور تصاویر لگائیں۔
-            </p>
-
-
-            <button
-
-              style={buttonStyle}
-
-              onClick={()=>router.push("/admin/products")}
-
-            >
-
-              Products Manage کریں
-
-            </button>
-
-
-          </div>
-
-
-
-
-
-          <div style={cardStyle}>
-
-            <h2>🛒 آرڈرز</h2>
-
-            <p>
-              نئے آرڈرز اور کسٹمر کی تفصیل دیکھیں۔
-            </p>
-
-
-            <button
-
-              style={buttonStyle}
-
-              onClick={()=>router.push("/admin/orders")}
-
-            >
-
-              Orders دیکھیں
-
-            </button>
-
-
-          </div>
-
-
-
-
-
-
-          <div style={cardStyle}>
-
-            <h2>👥 Customers</h2>
-
-            <p>
-              کسٹمرز کا ریکارڈ۔
-            </p>
-
-
-            <button
-
-              style={buttonStyle}
-
-            >
-
-              Customers
-
-            </button>
-
-
-          </div>
-
-
-
-
-
-          <div style={cardStyle}>
-
-            <h2>⚙️ Settings</h2>
-
-            <p>
-              Website settings اور account management۔
-            </p>
-
-
-            <button
-
-              style={buttonStyle}
-
-            >
-
-              Settings
-
-            </button>
-
-
-          </div>
-
-
-
-
-        </div>
-
+        </button>
 
 
 
 
         <button
 
-          onClick={logout}
+          onClick={()=>router.push("/products")}
 
-          style={{
-
-            marginTop:"40px",
-
-            background:"#c62828",
-
-            color:"white",
-
-            border:"none",
-
-            padding:"12px 30px",
-
-            borderRadius:"25px",
-
-            cursor:"pointer",
-
-            display:"block",
-
-            marginLeft:"auto",
-
-            marginRight:"auto"
-
-          }}
+          style={cardButton}
 
         >
 
-          Logout
+          🛒 View Website Products
+
+          <br/>
+
+          مصنوعات دیکھیں
 
         </button>
 
@@ -251,44 +109,28 @@ export default function AdminDashboard(){
 
     </main>
 
-
   );
 
 }
 
 
 
+const cardButton={
 
-const cardStyle={
+  padding:"30px",
 
-background:"white",
+  background:"white",
 
-padding:"25px",
+  border:"none",
 
-borderRadius:"20px",
+  borderRadius:"25px",
 
-boxShadow:"0 5px 20px #ddd",
+  boxShadow:"0 8px 25px #ccc",
 
-textAlign:"center"
+  color:"#1b5e20",
 
-};
+  fontSize:"20px",
 
-
-
-const buttonStyle={
-
-background:"#1b5e20",
-
-color:"white",
-
-border:"none",
-
-padding:"12px 20px",
-
-borderRadius:"25px",
-
-cursor:"pointer",
-
-fontSize:"15px"
+  cursor:"pointer"
 
 };
