@@ -7,15 +7,9 @@ export default function Products() {
 
   const { addToCart } = useCart();
 
-  const weights = [
-    "100 گرام",
-    "250 گرام",
-    "500 گرام",
-    "1 کلو"
-  ];
-
 
   const products = [
+
     "ہلدی پاؤڈر",
     "لہسن پاؤڈر",
     "ادرک پاؤڈر",
@@ -27,30 +21,68 @@ export default function Products() {
     "میتھی دانہ پاؤڈر",
     "آملہ پاؤڈر",
     "اشوگندھا پاؤڈر",
-    "سہانجنا پاؤڈر"
+    "سہانجنا پاؤڈر",
+    "ملیٹھی پاؤڈر",
+    "نیم پاؤڈر",
+    "برہمی پاؤڈر",
+    "سفید موصلی پاؤڈر",
+    "ستاور پاؤڈر",
+    "السی پاؤڈر",
+    "تخم ملنگا",
+    "اسپغول کا چھلکا"
+
   ];
 
 
-  const [selectedWeight, setSelectedWeight] = useState({});
+  const weights = [
+
+    {
+      name:"100 گرام",
+      price:"300 روپے"
+    },
+
+    {
+      name:"250 گرام",
+      price:"750 روپے"
+    },
+
+    {
+      name:"500 گرام",
+      price:"1500 روپے"
+    },
+
+    {
+      name:"1 کلو",
+      price:"3000 روپے"
+    }
+
+  ];
+
+
+
+  const [selected,setSelected] = useState({});
+
 
 
   function addProduct(product){
 
-    const weight =
-      selectedWeight[product] || "100 گرام";
+
+    const choose =
+      selected[product] || weights[0];
 
 
     addToCart({
 
       name: product,
 
-      weight: weight,
+      weight: choose.name,
 
-      price: "",
+      price: choose.price,
 
-      quantity: 1
+      quantity:1
 
     });
+
 
   }
 
@@ -67,6 +99,7 @@ export default function Products() {
       }}
     >
 
+
       <h1
         style={{
           textAlign:"center",
@@ -77,6 +110,7 @@ export default function Products() {
       </h1>
 
 
+
       <div
         style={{
           display:"grid",
@@ -85,11 +119,16 @@ export default function Products() {
         }}
       >
 
+
+
       {
         products.map((product,index)=>(
 
+
           <div
+
             key={index}
+
             style={{
               background:"white",
               padding:"20px",
@@ -97,7 +136,10 @@ export default function Products() {
               boxShadow:"0 5px 15px #ddd",
               textAlign:"center"
             }}
+
           >
+
+
 
             <div
               style={{
@@ -106,11 +148,13 @@ export default function Products() {
                 borderRadius:"15px",
                 display:"flex",
                 justifyContent:"center",
-                alignItems:"center"
+                alignItems:"center",
+                fontSize:"35px"
               }}
             >
               🌿 تصویر بعد میں
             </div>
+
 
 
             <h2>
@@ -118,54 +162,72 @@ export default function Products() {
             </h2>
 
 
-            <p>
-              وزن منتخب کریں:
-            </p>
-
 
             <select
 
-              value={
-                selectedWeight[product] || "100 گرام"
-              }
-
-              onChange={(e)=>
-
-                setSelectedWeight({
-
-                  ...selectedWeight,
-
-                  [product]: e.target.value
-
-                })
-
-              }
-
               style={{
+                width:"100%",
                 padding:"10px",
-                borderRadius:"10px",
-                width:"100%"
+                borderRadius:"10px"
               }}
+
+
+              onChange={(e)=>{
+
+
+                const selectedWeight =
+                  weights.find(
+                    w=>w.name===e.target.value
+                  );
+
+
+                setSelected({
+
+                  ...selected,
+
+                  [product]:selectedWeight
+
+                });
+
+
+              }}
+
 
             >
 
-            {
-              weights.map((w,i)=>(
 
-                <option key={i}>
-                  {w}
-                </option>
+              {
+                weights.map((w,index)=>(
 
-              ))
-            }
+                  <option key={index}>
+                    {w.name}
+                  </option>
+
+                ))
+              }
+
 
             </select>
 
 
 
+
             <p>
-              قیمت: بعد میں درج ہوگی
+
+              قیمت:
+
+              {" "}
+
+              {
+                selected[product]
+                ?
+                selected[product].price
+                :
+                "300 روپے"
+              }
+
             </p>
+
 
 
 
@@ -179,21 +241,28 @@ export default function Products() {
                 border:"none",
                 padding:"12px 25px",
                 borderRadius:"25px",
-                marginTop:"10px"
+                cursor:"pointer"
               }}
 
             >
+
               🛒 کارٹ میں شامل کریں
+
             </button>
+
 
 
           </div>
 
+
         ))
+
       }
 
 
+
       </div>
+
 
 
     </main>
