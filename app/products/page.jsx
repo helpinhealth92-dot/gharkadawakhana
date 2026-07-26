@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { useCart } from "../context/CartContext";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function Products() {
 
-  const { addToCart, cart } = useCart();
+  const { addToCart } = useCart();
   const [message, setMessage] = useState("");
 
   const products = [
@@ -26,25 +26,20 @@ export default function Products() {
     "اشوگندھا پاؤڈر",
     "سہانجنا پاؤڈر",
     "سفید موصلی پاؤڈر",
-    "ستاور پاؤڈر",
-    "السی پاؤڈر",
-    "تخم ملنگا",
-    "اسپغول کا چھلکا",
-    "شہد خالص",
-    "زیتون کا تیل",
-    "کلونجی کا تیل",
-    "بادام روغن",
     "گولڈن ملک ہربل مکس"
   ];
 
 
   function addProduct(item){
+
     addToCart(item);
+
     setMessage(`${item} کارٹ میں شامل ہو گیا`);
-    
+
     setTimeout(()=>{
       setMessage("");
     },2000);
+
   }
 
 
@@ -52,33 +47,26 @@ export default function Products() {
 
     <main
       style={{
-        padding:"20px",
         direction:"rtl",
         background:"#f5fff5",
         minHeight:"100vh",
-        fontFamily:"sans-serif"
+        padding:"25px",
+        fontFamily:"Arial"
       }}
     >
 
-      <section
+
+      <h1
         style={{
-          background:"#1b5e20",
-          color:"white",
-          padding:"35px",
-          borderRadius:"20px",
           textAlign:"center",
-          marginBottom:"25px"
+          color:"#1b5e20"
         }}
       >
+        🌿 تمام مصنوعات
+      </h1>
 
-        <h1>
-          🌿 گھر کا دَواخانہ
-        </h1>
 
-        <p>
-          خالص جڑی بوٹیاں اور قدرتی ہربل مصنوعات
-        </p>
-
+      <div style={{textAlign:"center",margin:"20px"}}>
 
         <Link href="/cart">
 
@@ -87,52 +75,39 @@ export default function Products() {
               padding:"12px 25px",
               borderRadius:"25px",
               border:"none",
-              cursor:"pointer"
+              background:"#1b5e20",
+              color:"white"
             }}
           >
-            🛒 کارٹ ({cart.length})
+            🛒 کارٹ دیکھیں
           </button>
 
         </Link>
 
-      </section>
+      </div>
 
 
 
       {message &&
 
-      <div
-        style={{
-          background:"#d8ffd8",
-          color:"green",
-          padding:"12px",
-          borderRadius:"10px",
-          textAlign:"center",
-          marginBottom:"20px"
-        }}
-      >
-        {message}
-      </div>
+        <p
+          style={{
+            textAlign:"center",
+            color:"green",
+            fontWeight:"bold"
+          }}
+        >
+          {message}
+        </p>
 
       }
-
-
-
-      <h2
-        style={{
-          textAlign:"center",
-          color:"#1b5e20"
-        }}
-      >
-        ہماری مصنوعات
-      </h2>
 
 
 
       <div
         style={{
           display:"grid",
-          gridTemplateColumns:"repeat(auto-fit,minmax(250px,1fr))",
+          gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",
           gap:"20px"
         }}
       >
@@ -147,34 +122,36 @@ export default function Products() {
             background:"white",
             borderRadius:"20px",
             padding:"20px",
-            boxShadow:"0 4px 12px #ddd",
-            textAlign:"center"
+            textAlign:"center",
+            boxShadow:"0 5px 15px #ddd"
           }}
         >
 
 
           <div
             style={{
-              height:"150px",
+              height:"120px",
               background:"#e8f5e9",
               borderRadius:"15px",
               display:"flex",
               alignItems:"center",
               justifyContent:"center",
-              fontSize:"50px"
+              fontSize:"45px"
             }}
           >
             🌿
           </div>
 
 
-          <h3
+
+          <h2
             style={{
-              color:"#2e7d32"
+              color:"#1b5e20"
             }}
           >
             {item}
-          </h3>
+          </h2>
+
 
 
           <p>
@@ -188,43 +165,45 @@ export default function Products() {
 
 
 
+          <button
+            onClick={()=>addProduct(item)}
+            style={{
+              width:"100%",
+              padding:"12px",
+              marginTop:"10px",
+              borderRadius:"25px",
+              border:"none",
+              background:"#1b5e20",
+              color:"white",
+              fontSize:"16px"
+            }}
+          >
+            🛒 کارٹ میں شامل کریں
+          </button>
+
+
+
           <a
             href={`https://wa.me/923477357397?text=میں ${item} کا آرڈر کرنا چاہتا ہوں`}
             target="_blank"
           >
 
-          <button
-            style={{
-              background:"#25D366",
-              color:"white",
-              border:"none",
-              padding:"10px",
-              borderRadius:"20px",
-              margin:"5px",
-              cursor:"pointer"
-            }}
-          >
-            WhatsApp آرڈر
-          </button>
+            <button
+              style={{
+                width:"100%",
+                padding:"12px",
+                marginTop:"10px",
+                borderRadius:"25px",
+                border:"none",
+                background:"#25D366",
+                color:"white",
+                fontSize:"16px"
+              }}
+            >
+              🟢 WhatsApp آرڈر
+            </button>
 
           </a>
-
-
-
-          <button
-            onClick={()=>addProduct(item)}
-            style={{
-              background:"#1b5e20",
-              color:"white",
-              border:"none",
-              padding:"10px",
-              borderRadius:"20px",
-              margin:"5px",
-              cursor:"pointer"
-            }}
-          >
-            🛒 کارٹ میں شامل کریں
-          </button>
 
 
         </div>
