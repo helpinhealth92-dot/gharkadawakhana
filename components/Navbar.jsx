@@ -9,10 +9,13 @@ export default function App() {
   const [customer, setCustomer] = useState({ name: '', phone: '', address: '', payment: 'COD' });
   const [orderSuccess, setOrderSuccess] = useState(false);
 
-  // ایڈمن کے لیے نئی پروڈکٹ شامل کرنے کا فارم
+  // واٹس ایپ نمبر
+  const whatsappNumber = '923477357397';
+
+  // ایڈمن کے لیے نئی پروڈکٹ
   const [newProduct, setNewProduct] = useState({ nameUrdu: '', basePrice: '', desc: '', img: '' });
 
-  // تمام 32 پروڈکٹس کی فہرست (100 گرام کی بیس پرائس کے ساتھ)
+  // تمام 32 مصنوعات
   const [products, setProducts] = useState([
     { id: 1, nameUrdu: 'اسپغول مسلم', basePrice: 450, img: 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=200', desc: 'معدہ اور انتڑیوں کی صفائی' },
     { id: 2, nameUrdu: 'عناب اصل', basePrice: 350, img: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=200', desc: 'خون کی صفائی کے لیے' },
@@ -48,7 +51,6 @@ export default function App() {
     { id: 32, nameUrdu: 'شربتِ بزوری', basePrice: 280, img: 'https://images.unsplash.com/photo-1546842931-886c185b4c8c?w=200', desc: 'گردے اور جگر کی صفائی' }
   ]);
 
-  // وزن کے پیمانے
   const weights = [
     { label: '100 گرام', factor: 1, grams: 100 },
     { label: '250 گرام', factor: 2.5, grams: 250 },
@@ -56,7 +58,6 @@ export default function App() {
     { label: '1 کلو', factor: 10, grams: 1000 }
   ];
 
-  // کارٹ میں پروڈکٹ کا اضافہ
   const addToCart = (product) => {
     const w = weightState[product.id] || weights[0];
     const finalPrice = Math.round(product.basePrice * w.factor);
@@ -64,7 +65,6 @@ export default function App() {
     alert(`${product.nameUrdu} (${w.label}) کارٹ میں شامل ہو گیا!`);
   };
 
-  // کُل وزن اور ڈیلیوری چارجز
   const totalGrams = cart.reduce((acc, item) => acc + item.grams, 0);
   
   const getDeliveryCharges = (grams) => {
@@ -81,66 +81,89 @@ export default function App() {
   const deliveryCharges = getDeliveryCharges(totalGrams);
   const grandTotal = subTotal + deliveryCharges;
 
-  // واٹس ایپ آرڈر کا فنکشن
   const handleConfirmOrder = (e) => {
     e.preventDefault();
     if (!customer.name || !customer.phone || !customer.address) {
-      alert('براہِ کرم تمام خانے (نام، فون اور پتہ) پر کریں۔');
+      alert('براہِ کرم تمام خانے پر کریں۔');
       return;
     }
 
     const itemsList = cart.map((i, index) => `${index + 1}. ${i.nameUrdu} (${i.label}) - Rs.${i.finalPrice}`).join('%0A');
-    const text = `*نیا آرڈر - گھر کا دواخانہ*%0A%0A*گاہک کی تفصیلات:*%0Aنام: ${customer.name}%0Aفون: ${customer.phone}%0Aپتہ: ${customer.address}%0Aادائیگی کا طریقہ: ${customer.payment}%0A%0A*آئٹمز:*%0A${itemsList}%0A%0A*کُل وزن:* ${totalGrams / 1000} kg%0A*سب ٹوٹل:* Rs.${subTotal}%0A*ڈیلیوری چارجز:* Rs.${deliveryCharges}%0A*کُل رقم:* Rs.${grandTotal}`;
+    const text = `*نیا آرڈر - گھر کا دواخانہ*%0A%0A*گاہک کی تفصیلات:*%0Aنام: ${customer.name}%0Aفون: ${customer.phone}%0Aپتہ: ${customer.address}%0Aادائیگی: ${customer.payment}%0A%0A*آئٹمز:*%0A${itemsList}%0A%0A*کُل وزن:* ${totalGrams / 1000} kg%0A*سب ٹوٹل:* Rs.${subTotal}%0A*ڈیلیوری چارجز:* Rs.${deliveryCharges}%0A*کُل رقم:* Rs.${grandTotal}`;
 
-    // آپ کے واٹس ایپ نمبر پر میسج جائے گا
-    window.open(`https://wa.me/923001234567?text=${text}`, '_blank');
+    window.open(`https://wa.me/${whatsappNumber}?text=${text}`, '_blank');
     setOrderSuccess(true);
   };
 
-  // ایڈمن پینل - نئی پروڈکٹ کا اضافہ
   const handleAddProduct = (e) => {
     e.preventDefault();
     if (!newProduct.nameUrdu || !newProduct.basePrice) return;
     setProducts([...products, { ...newProduct, id: Date.now(), basePrice: Number(newProduct.basePrice), img: newProduct.img || 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=200' }]);
     setNewProduct({ nameUrdu: '', basePrice: '', desc: '', img: '' });
-    alert('نئی پروڈکٹ کامیابی سے شامل کر دی گئی!');
+    alert('نئی پروڈکٹ شامل ہو گئی!');
   };
 
   return (
-    <div style={{ maxWidth: '600px', margin: 'auto', direction: 'rtl', fontFamily: 'Courier New, monospace, sans-serif', backgroundColor: '#f4f6f8', minHeight: '100vh', paddingBottom: '30px' }}>
+    <div style={{ maxWidth: '450px', margin: 'auto', fontFamily: 'sans-serif', backgroundColor: '#ffffff', minHeight: '100vh', padding: '15px' }}>
       
-      {/* 1. ہیڈر اور لوگو (Header & Logo) */}
-      <header style={{ backgroundColor: '#1b5e20', color: 'white', padding: '15px', textAlign: 'center', borderBottomLeftRadius: '15px', borderBottomRightRadius: '15px' }}>
-        <h1 style={{ margin: '0', fontSize: '24px' }}>🌿 گھر کا دواخانہ</h1>
-        <p style={{ margin: '5px 0 10px 0', fontSize: '13px', color: '#c8e6c9' }}>خالص دیسی جڑی بوٹیاں اور قدرتی روغن</p>
-        
-        {/* کانٹیکٹ بٹنز */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '10px' }}>
-          <a href="tel:03001234567" style={styles.headerBtn}>📞 کال کریں</a>
-          <a href="https://wa.me/923001234567" target="_blank" rel="noreferrer" style={{ ...styles.headerBtn, backgroundColor: '#25D366', color: 'white' }}>💬 واٹس ایپ</a>
+      {/* 1. لوگو اور نام (لوگو اوپر آپ کی تصویر کے مطابق) */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        <div>
+          <h2 style={{ color: '#2e7d32', margin: '0', fontSize: '28px', fontFamily: 'Urdu, sans-serif' }}>گھر کا دواخانہ</h2>
+          <p style={{ margin: '5px 0 0 0', color: '#555', fontSize: '18px', fontWeight: '500' }}>Herbalist Afzal Nadeem</p>
         </div>
-      </header>
+        
+        {/* لوگو / مونوگرام */}
+        <div style={{ width: '80px', height: '80px', borderRadius: '50%', border: '2px solid #2e7d32', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#e8f5e9' }}>
+          <img 
+            src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=200" 
+            alt="Herbalist Afzal Nadeem Logo" 
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
+          <span style={{ fontSize: '10px', textAlign: 'center', color: '#1b5e20', fontWeight: 'bold' }}>Herbalist<br/>Afzal Nadeem</span>
+        </div>
+      </div>
 
-      {/* 2. نیویگیشن بار (Tabs) */}
-      <nav style={{ display: 'flex', justifyContent: 'space-around', margin: '15px 10px', backgroundColor: 'white', padding: '8px', borderRadius: '10px', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}>
-        <button onClick={() => { setActiveTab('products'); setOrderSuccess(false); }} style={activeTab === 'products' ? styles.activeTabBtn : styles.tabBtn}>🛍️ مصنوعات</button>
-        <button onClick={() => { setActiveTab('cart'); setOrderSuccess(false); }} style={activeTab === 'cart' ? styles.activeTabBtn : styles.tabBtn}>🛒 کارٹ ({cart.length})</button>
-        <button onClick={() => { setActiveTab('admin'); setOrderSuccess(false); }} style={activeTab === 'admin' ? styles.activeTabBtn : styles.tabBtn}>⚙️ ایڈمن ڈیش بورڈ</button>
-      </nav>
+      {/* 2. آپ کے پسندیدہ گول بٹنز (تصویر کے مطابق) */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center', marginBottom: '25px' }}>
+        
+        <div style={{ display: 'flex', gap: '15px', width: '100%', justifyContent: 'center' }}>
+          <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" style={{ ...styles.pillBtnLight, textDecoration: 'none', color: '#1b5e20' }}>
+            Contact 📞
+          </a>
+          <button onClick={() => { setActiveTab('products'); setOrderSuccess(false); }} style={styles.pillBtnLight}>
+            Home 🏠
+          </button>
+        </div>
 
-      {/* 3. مصنوعات کی لسٹ (Products List) */}
+        <button onClick={() => { setActiveTab('admin'); setOrderSuccess(false); }} style={styles.pillBtnDark}>
+          ▼ Admin Dashboard ⚙️
+        </button>
+
+        <button onClick={() => { setActiveTab('products'); setOrderSuccess(false); }} style={styles.pillBtnLight}>
+          Products 🌿
+        </button>
+
+        <button onClick={() => { setActiveTab('cart'); setOrderSuccess(false); }} style={styles.pillBtnDark}>
+          Cart ({cart.length}) 🛒
+        </button>
+      </div>
+
+      <hr style={{ border: 'none', borderTop: '1px solid #eee', margin: '20px 0' }} />
+
+      {/* 3. مصنوعات کی لسٹ */}
       {activeTab === 'products' && (
-        <div style={{ padding: '0 10px', display: 'grid', gap: '12px' }}>
+        <div style={{ display: 'grid', gap: '15px' }}>
           {products.map(p => (
-            <div key={p.id} style={{ display: 'flex', gap: '10px', backgroundColor: 'white', padding: '10px', borderRadius: '10px', border: '1px solid #e0e0e0', alignItems: 'center' }}>
-              <img src={p.img} alt={p.nameUrdu} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '8px' }} />
+            <div key={p.id} style={{ display: 'flex', gap: '12px', backgroundColor: '#f9f9f9', padding: '12px', borderRadius: '12px', border: '1px solid #e0e0e0', alignItems: 'center', direction: 'rtl' }}>
+              <img src={p.img} alt={p.nameUrdu} style={{ width: '70px', height: '70px', objectFit: 'cover', borderRadius: '8px' }} />
               <div style={{ flexGrow: 1 }}>
-                <h3 style={{ margin: '0 0 4px 0', fontSize: '16px', color: '#2e7d32' }}>{p.nameUrdu}</h3>
+                <h4 style={{ margin: '0 0 4px 0', fontSize: '16px', color: '#1b5e20' }}>{p.nameUrdu}</h4>
                 <p style={{ margin: '0 0 6px 0', fontSize: '12px', color: '#666' }}>{p.desc}</p>
                 
-                {/* وزن کا انتخاب */}
-                <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
-                  <select onChange={(e) => setWeightState({ ...weightState, [p.id]: weights[e.target.value] })} style={{ padding: '4px', borderRadius: '4px', border: '1px solid #ccc', fontSize: '12px' }}>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                  <select onChange={(e) => setWeightState({ ...weightState, [p.id]: weights[e.target.value] })} style={{ padding: '4px 8px', borderRadius: '6px', border: '1px solid #ccc', fontSize: '12px' }}>
                     {weights.map((w, i) => (
                       <option key={i} value={i}>{w.label} - Rs.{Math.round(p.basePrice * w.factor)}</option>
                     ))}
@@ -153,10 +176,10 @@ export default function App() {
         </div>
       )}
 
-      {/* 4. کارٹ اور چیک آؤٹ فارم (Cart & Checkout) */}
+      {/* 4. کارٹ اور فارم */}
       {activeTab === 'cart' && !orderSuccess && (
-        <div style={{ padding: '0 10px' }}>
-          <div style={{ backgroundColor: 'white', padding: '15px', borderRadius: '10px', marginBottom: '15px' }}>
+        <div style={{ direction: 'rtl' }}>
+          <div style={{ backgroundColor: '#f9f9f9', padding: '15px', borderRadius: '12px', marginBottom: '15px' }}>
             <h3 style={{ margin: '0 0 10px 0', borderBottom: '2px solid #1b5e20', paddingBottom: '5px' }}>آپ کا کارٹ</h3>
             {cart.length === 0 ? (
               <p style={{ textAlign: 'center', color: '#777' }}>آپ کا کارٹ خالی ہے۔</p>
@@ -170,7 +193,7 @@ export default function App() {
             )}
 
             {cart.length > 0 && (
-              <div style={{ marginTop: '15px', backgroundColor: '#f9f9f9', padding: '10px', borderRadius: '8px' }}>
+              <div style={{ marginTop: '15px', backgroundColor: '#fff', padding: '10px', borderRadius: '8px', border: '1px solid #ddd' }}>
                 <p style={{ margin: '3px 0' }}>سب ٹوٹل: Rs. {subTotal}</p>
                 <p style={{ margin: '3px 0' }}>ڈیلیوری چارجز: Rs. {deliveryCharges}</p>
                 <h4 style={{ margin: '5px 0 0 0', color: '#1b5e20' }}>کُل رقم: Rs. {grandTotal}</h4>
@@ -178,15 +201,14 @@ export default function App() {
             )}
           </div>
 
-          {/* کسٹمر کا ایڈریس فارم */}
           {cart.length > 0 && (
-            <form onSubmit={handleConfirmOrder} style={{ backgroundColor: 'white', padding: '15px', borderRadius: '10px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <h3 style={{ margin: '0', fontSize: '16px', color: '#1b5e20' }}>آرڈر فارم (پتہ لکھیں):</h3>
+            <form onSubmit={handleConfirmOrder} style={{ backgroundColor: '#f9f9f9', padding: '15px', borderRadius: '12px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <h4 style={{ margin: '0', color: '#1b5e20' }}>آرڈر اور ایڈریس کی تفصیل:</h4>
               <input type="text" placeholder="آپ کا پورا نام" required value={customer.name} onChange={(e) => setCustomer({ ...customer, name: e.target.value })} style={styles.input} />
               <input type="tel" placeholder="موبائل / واٹس ایپ نمبر" required value={customer.phone} onChange={(e) => setCustomer({ ...customer, phone: e.target.value })} style={styles.input} />
               <textarea placeholder="مکمل پتہ (مکان نمبر، گلی، شہر)" required value={customer.address} onChange={(e) => setCustomer({ ...customer, address: e.target.value })} style={{ ...styles.input, height: '60px' }}></textarea>
               
-              <label style={{ fontSize: '12px', fontWeight: 'bold' }}>ادائیگی کا طریقہ منتخب کریں:</label>
+              <label style={{ fontSize: '12px', fontWeight: 'bold' }}>ادائیگی کا طریقہ:</label>
               <select value={customer.payment} onChange={(e) => setCustomer({ ...customer, payment: e.target.value })} style={styles.input}>
                 <option value="COD">کیش آن ڈلیوری (Cash on Delivery)</option>
                 <option value="JazzCash">جاز کیش (JazzCash)</option>
@@ -199,32 +221,32 @@ export default function App() {
         </div>
       )}
 
-      {/* 5. آرڈر کی تصدیق اور شکریہ کا پیغام (Thank You Screen) */}
+      {/* 5. شکریہ کی سکرین */}
       {orderSuccess && (
-        <div style={{ padding: '30px 15px', textAlign: 'center', backgroundColor: 'white', margin: '10px', borderRadius: '10px' }}>
+        <div style={{ padding: '30px 15px', textAlign: 'center', backgroundColor: '#e8f5e9', borderRadius: '12px', direction: 'rtl' }}>
           <h1 style={{ fontSize: '48px', margin: '0' }}>🎉</h1>
           <h2 style={{ color: '#1b5e20' }}>بہت بہت شکریہ!</h2>
-          <p>آپ کا آرڈر موصول ہو چکا ہے۔ ہم جلد ہی آپ سے رابط کرکے آرڈر بھیج دیں گے۔</p>
+          <p>آپ کا آرڈر موصول ہو چکا ہے۔ واٹس ایپ پر تفصیلات بھیج دی گئی ہیں۔</p>
           <button onClick={() => { setCart([]); setOrderSuccess(false); setActiveTab('products'); }} style={styles.confirmOrderBtn}>مزید خریداری کریں</button>
         </div>
       )}
 
-      {/* 6. ایڈمن ڈیش بورڈ (Admin Dashboard) */}
+      {/* 6. ایڈمن ڈیش بورڈ */}
       {activeTab === 'admin' && (
-        <div style={{ padding: '0 10px' }}>
-          <div style={{ backgroundColor: 'white', padding: '15px', borderRadius: '10px', marginBottom: '15px' }}>
+        <div style={{ direction: 'rtl' }}>
+          <div style={{ backgroundColor: '#f9f9f9', padding: '15px', borderRadius: '12px', marginBottom: '15px' }}>
             <h3>➕ نئی پروڈکٹ شامل کریں</h3>
             <form onSubmit={handleAddProduct} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <input type="text" placeholder="پروڈکٹ کا اردو نام" required value={newProduct.nameUrdu} onChange={(e) => setNewProduct({ ...newProduct, nameUrdu: e.target.value })} style={styles.input} />
+              <input type="text" placeholder="پروڈکٹ کا نام" required value={newProduct.nameUrdu} onChange={(e) => setNewProduct({ ...newProduct, nameUrdu: e.target.value })} style={styles.input} />
               <input type="number" placeholder="100 گرام کی قیمت (Rs)" required value={newProduct.basePrice} onChange={(e) => setNewProduct({ ...newProduct, basePrice: e.target.value })} style={styles.input} />
-              <input type="text" placeholder="مختصر فائدہ / تفصیل" value={newProduct.desc} onChange={(e) => setNewProduct({ ...newProduct, desc: e.target.value })} style={styles.input} />
+              <input type="text" placeholder="مختصر فائدہ" value={newProduct.desc} onChange={(e) => setNewProduct({ ...newProduct, desc: e.target.value })} style={styles.input} />
               <input type="text" placeholder="تصویر کا لنک (Image URL)" value={newProduct.img} onChange={(e) => setNewProduct({ ...newProduct, img: e.target.value })} style={styles.input} />
-              <button type="submit" style={{ ...styles.addCartBtn, padding: '10px' }}>پروڈکٹ محفوظ کریں</button>
+              <button type="submit" style={styles.addCartBtn}>محفوظ کریں</button>
             </form>
           </div>
 
-          <div style={{ backgroundColor: 'white', padding: '15px', borderRadius: '10px' }}>
-            <h3>📋 موجودہ پروڈکٹس ({products.length})</h3>
+          <div style={{ backgroundColor: '#f9f9f9', padding: '15px', borderRadius: '12px' }}>
+            <h3>📋 تمام پروڈکٹس ({products.length})</h3>
             {products.map(p => (
               <div key={p.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #eee', alignItems: 'center' }}>
                 <span>{p.nameUrdu} (100g = Rs.{p.basePrice})</span>
@@ -239,12 +261,34 @@ export default function App() {
   );
 }
 
-// سٹائلز (Styles)
+// سٹائلز (آپ کی تصویر والے ڈیزائن کے مطابق)
 const styles = {
-  headerBtn: { backgroundColor: 'white', color: '#1b5e20', padding: '5px 12px', borderRadius: '20px', textDecoration: 'none', fontSize: '12px', fontWeight: 'bold' },
-  tabBtn: { flexGrow: 1, padding: '8px', border: 'none', backgroundColor: 'transparent', cursor: 'pointer', fontSize: '13px' },
-  activeTabBtn: { flexGrow: 1, padding: '8px', border: 'none', backgroundColor: '#1b5e20', color: 'white', borderRadius: '6px', cursor: 'pointer', fontSize: '13px', fontWeight: 'bold' },
-  addCartBtn: { backgroundColor: '#2e7d32', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' },
-  input: { padding: '8px', borderRadius: '5px', border: '1px solid #ccc', fontSize: '13px', direction: 'rtl' },
-  confirmOrderBtn: { backgroundColor: '#1b5e20', color: 'white', padding: '12px', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '14px', fontWeight: 'bold', width: '100%' }
+  pillBtnLight: {
+    backgroundColor: '#f1f8e9',
+    color: '#1b5e20',
+    border: 'none',
+    padding: '12px 28px',
+    borderRadius: '30px',
+    fontSize: '18px',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '8px'
+  },
+  pillBtnDark: {
+    backgroundColor: '#1b5e20',
+    color: 'white',
+    border: 'none',
+    padding: '14px 35px',
+    borderRadius: '35px',
+    fontSize: '20px',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    width: '85%',
+    textAlign: 'center'
+  },
+  addCartBtn: { backgroundColor: '#1b5e20', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', fontSize: '12px' },
+  input: { padding: '8px', borderRadius: '6px', border: '1px solid #ccc', fontSize: '13px' },
+  confirmOrderBtn: { backgroundColor: '#1b5e20', color: 'white', padding: '12px', border: 'none', borderRadius: '8px', cursor: 'pointer', fontSize: '15px', fontWeight: 'bold', width: '100%', marginTop: '10px' }
 };
