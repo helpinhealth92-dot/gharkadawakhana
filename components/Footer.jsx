@@ -3,38 +3,35 @@
 import Link from "next/link";
 import Image from "next/image";
 
-
-export default function Footer(){
+export default function Footer() {
 
   return (
 
     <footer
       style={{
         direction:"rtl",
-        background:"#103b1a",
-        color:"white",
-        padding:"50px 25px 20px",
+        background:"#0b3d1b",
+        color:"#fff",
+        padding:"45px 25px 20px",
         marginTop:"50px"
       }}
     >
-
 
       <div
         style={{
           maxWidth:"1200px",
           margin:"auto",
           display:"grid",
-          gridTemplateColumns:"repeat(auto-fit,minmax(250px,1fr))",
-          gap:"35px"
+          gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",
+          gap:"30px",
+          alignItems:"start"
         }}
       >
-
 
 
         {/* Brand */}
 
         <div>
-
 
           <div
             style={{
@@ -48,10 +45,9 @@ export default function Footer(){
               src="/logo.png"
               width={70}
               height={70}
-              alt="Ghar Ka Dawakhana Logo"
+              alt="Logo"
               style={{
-                borderRadius:"50%",
-                objectFit:"cover"
+                borderRadius:"50%"
               }}
             />
 
@@ -60,16 +56,17 @@ export default function Footer(){
 
               <h2
                 style={{
-                  margin:0
+                  margin:"0",
+                  fontSize:"24px"
                 }}
               >
                 گھر کا دَواخانہ
               </h2>
 
-
               <p
                 style={{
-                  margin:0
+                  margin:"5px 0",
+                  color:"#d8e8d8"
                 }}
               >
                 Herbalist Afzal Nadeem
@@ -77,21 +74,18 @@ export default function Footer(){
 
             </div>
 
-
           </div>
-
 
 
           <p
             style={{
               lineHeight:"2",
-              marginTop:"20px"
+              marginTop:"20px",
+              color:"#e6e6e6"
             }}
           >
-
             دیسی جڑی بوٹیاں، قدرتی ہربل مصنوعات
             اور حکمت کے اصولوں کے مطابق معیاری مصنوعات۔
-
           </p>
 
 
@@ -105,37 +99,32 @@ export default function Footer(){
 
         <div>
 
-          <h3>
+          <h3
+            style={{
+              color:"#d4af37"
+            }}
+          >
             اہم لنکس
           </h3>
 
 
           <p>
-            <Link
-              href="/"
-              style={linkStyle}
-            >
-              Home
+            <Link href="/" style={link}>
+              🏠 Home
             </Link>
           </p>
 
 
           <p>
-            <Link
-              href="/products"
-              style={linkStyle}
-            >
-              Products
+            <Link href="/products" style={link}>
+              🌿 Products
             </Link>
           </p>
 
 
           <p>
-            <Link
-              href="/contact"
-              style={linkStyle}
-            >
-              Contact Us
+            <Link href="/contact" style={link}>
+              📞 Contact Us
             </Link>
           </p>
 
@@ -150,14 +139,17 @@ export default function Footer(){
 
         <div>
 
-
-          <h3>
+          <h3
+            style={{
+              color:"#d4af37"
+            }}
+          >
             رابطہ کریں
           </h3>
 
 
           <p>
-            📞 03477357397
+            📱 03477357397
           </p>
 
 
@@ -165,12 +157,13 @@ export default function Footer(){
             href="https://wa.me/923477357397"
             target="_blank"
             style={{
-              display:"inline-block",
               background:"#25D366",
-              color:"white",
-              padding:"10px 20px",
-              borderRadius:"25px",
-              textDecoration:"none"
+              color:"#fff",
+              padding:"10px 25px",
+              borderRadius:"30px",
+              textDecoration:"none",
+              display:"inline-block",
+              marginTop:"10px"
             }}
           >
             WhatsApp
@@ -187,8 +180,11 @@ export default function Footer(){
 
         <div>
 
-
-          <h3>
+          <h3
+            style={{
+              color:"#d4af37"
+            }}
+          >
             معلومات
           </h3>
 
@@ -198,10 +194,14 @@ export default function Footer(){
           </p>
 
 
-          <p>
+          <p
+            style={{
+              lineHeight:"1.8"
+            }}
+          >
             Ⓡ Registered with
             <br/>
-            National Council for Tibb,
+            National Council for Tibb
             <br/>
             Islamabad (NCT)
           </p>
@@ -219,10 +219,11 @@ export default function Footer(){
 
       <div
         style={{
-          borderTop:"1px solid rgba(255,255,255,0.3)",
-          marginTop:"40px",
-          paddingTop:"20px",
-          textAlign:"center"
+          borderTop:"1px solid rgba(255,255,255,.3)",
+          marginTop:"35px",
+          paddingTop:"15px",
+          textAlign:"center",
+          color:"#ddd"
         }}
       >
 
@@ -233,7 +234,6 @@ export default function Footer(){
       </div>
 
 
-
     </footer>
 
   );
@@ -242,9 +242,9 @@ export default function Footer(){
 
 
 
-const linkStyle={
+const link = {
 
-color:"white",
+color:"#fff",
 
 textDecoration:"none"
 
