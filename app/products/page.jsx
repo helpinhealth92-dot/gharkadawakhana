@@ -1,15 +1,14 @@
 "use client";
 
 import { useCart } from "../context/CartContext";
-import Link from "next/link";
-import { useState } from "react";
 
 export default function Products() {
 
   const { addToCart } = useCart();
-  const [message, setMessage] = useState("");
+
 
   const products = [
+
     "ہلدی پاؤڈر",
     "لہسن پاؤڈر",
     "ادرک پاؤڈر",
@@ -26,21 +25,27 @@ export default function Products() {
     "اشوگندھا پاؤڈر",
     "سہانجنا پاؤڈر",
     "سفید موصلی پاؤڈر",
+    "ستاور پاؤڈر",
+    "السی پاؤڈر",
+    "تخم ملنگا",
+    "اسپغول کا چھلکا",
+    "کالی مرچ پاؤڈر",
+    "لونگ پاؤڈر",
+    "الائچی پاؤڈر",
+    "جائفل پاؤڈر",
+    "گلاب کی پتی پاؤڈر",
+    "ہربل ہاضمہ چورن",
+    "طاقت سفوف",
+    "معجون",
+    "خمیرہ",
+    "جوارش",
+    "شہد خالص",
+    "زیتون کا تیل",
+    "کلونجی کا تیل",
+    "بادام روغن",
     "گولڈن ملک ہربل مکس"
+
   ];
-
-
-  function addProduct(item){
-
-    addToCart(item);
-
-    setMessage(`${item} کارٹ میں شامل ہو گیا`);
-
-    setTimeout(()=>{
-      setMessage("");
-    },2000);
-
-  }
 
 
   return (
@@ -48,13 +53,11 @@ export default function Products() {
     <main
       style={{
         direction:"rtl",
+        padding:"30px",
         background:"#f5fff5",
-        minHeight:"100vh",
-        padding:"25px",
-        fontFamily:"Arial"
+        minHeight:"100vh"
       }}
     >
-
 
       <h1
         style={{
@@ -66,71 +69,30 @@ export default function Products() {
       </h1>
 
 
-      <div style={{textAlign:"center",margin:"20px"}}>
-
-        <Link href="/cart">
-
-          <button
-            style={{
-              padding:"12px 25px",
-              borderRadius:"25px",
-              border:"none",
-              background:"#1b5e20",
-              color:"white"
-            }}
-          >
-            🛒 کارٹ دیکھیں
-          </button>
-
-        </Link>
-
-      </div>
-
-
-
-      {message &&
-
-        <p
-          style={{
-            textAlign:"center",
-            color:"green",
-            fontWeight:"bold"
-          }}
-        >
-          {message}
-        </p>
-
-      }
-
-
-
       <div
         style={{
           display:"grid",
-          gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",
+          gridTemplateColumns:"repeat(auto-fit,minmax(250px,1fr))",
           gap:"20px"
         }}
       >
 
-
-      {products.map((item,index)=>(
-
+      {products.map((product,index)=>(
 
         <div
           key={index}
           style={{
             background:"white",
-            borderRadius:"20px",
             padding:"20px",
-            textAlign:"center",
-            boxShadow:"0 5px 15px #ddd"
+            borderRadius:"20px",
+            boxShadow:"0 5px 15px #ddd",
+            textAlign:"center"
           }}
         >
 
-
           <div
             style={{
-              height:"120px",
+              height:"130px",
               background:"#e8f5e9",
               borderRadius:"15px",
               display:"flex",
@@ -139,75 +101,47 @@ export default function Products() {
               fontSize:"45px"
             }}
           >
-            🌿
+            تصویر بعد میں
           </div>
 
 
-
-          <h2
-            style={{
-              color:"#1b5e20"
-            }}
-          >
-            {item}
+          <h2>
+            {product}
           </h2>
 
 
-
           <p>
-            وزن: 100g / 250g / 500g
+            100 گرام — قیمت: ______
           </p>
 
-
           <p>
-            قیمت: جلد درج ہوگی
+            250 گرام — قیمت: ______
           </p>
 
+          <p>
+            500 گرام — قیمت: ______
+          </p>
+
+          <p>
+            1 کلو — قیمت: ______
+          </p>
 
 
           <button
-            onClick={()=>addProduct(item)}
+            onClick={()=>addToCart(product)}
             style={{
-              width:"100%",
-              padding:"12px",
-              marginTop:"10px",
-              borderRadius:"25px",
-              border:"none",
               background:"#1b5e20",
               color:"white",
-              fontSize:"16px"
+              border:"none",
+              padding:"12px 25px",
+              borderRadius:"25px"
             }}
           >
             🛒 کارٹ میں شامل کریں
           </button>
 
 
-
-          <a
-            href={`https://wa.me/923477357397?text=میں ${item} کا آرڈر کرنا چاہتا ہوں`}
-            target="_blank"
-          >
-
-            <button
-              style={{
-                width:"100%",
-                padding:"12px",
-                marginTop:"10px",
-                borderRadius:"25px",
-                border:"none",
-                background:"#25D366",
-                color:"white",
-                fontSize:"16px"
-              }}
-            >
-              🟢 WhatsApp آرڈر
-            </button>
-
-          </a>
-
-
         </div>
-
 
       ))}
 
