@@ -4,66 +4,60 @@ import Link from "next/link";
 
 export default function Home() {
 
-  return (
+  const products = [
+    "ہلدی پاؤڈر",
+    "کلونجی پاؤڈر",
+    "اشوگندھا پاؤڈر",
+    "سہانجنا پاؤڈر",
+    "گولڈن ملک ہربل مکس",
+    "کلونجی کا تیل"
+  ];
 
+  return (
     <main
       style={{
         direction:"rtl",
-        fontFamily:"sans-serif",
+        fontFamily:"Arial",
         background:"#f5fff5",
         minHeight:"100vh"
       }}
     >
 
-
-      {/* Hero Section */}
+      {/* Hero */}
 
       <section
         style={{
-          background:"#1b5e20",
+          background:"linear-gradient(135deg,#1b5e20,#388e3c)",
           color:"white",
-          padding:"50px 20px",
+          padding:"60px 20px",
           textAlign:"center",
-          borderRadius:"0 0 30px 30px"
+          borderRadius:"0 0 40px 40px"
         }}
       >
 
-        <h1
-          style={{
-            fontSize:"40px",
-            marginBottom:"15px"
-          }}
-        >
+        <h1 style={{fontSize:"42px"}}>
           🌿 گھر کا دَواخانہ
         </h1>
 
-
-        <p
-          style={{
-            fontSize:"20px"
-          }}
-        >
-          خالص جڑی بوٹیاں اور قدرتی ہربل مصنوعات
+        <p style={{fontSize:"22px"}}>
+          قدرتی جڑی بوٹیاں اور خالص ہربل مصنوعات
         </p>
-
 
         <p>
-          حکمت اور قدرتی علاج کے اصولوں کے مطابق
+          حکمت اور قدرتی اصولوں کے مطابق
         </p>
-
 
         <Link href="/products">
 
           <button
             style={{
-              marginTop:"20px",
-              padding:"15px 35px",
+              marginTop:"25px",
+              padding:"15px 40px",
               borderRadius:"30px",
               border:"none",
-              background:"#ffffff",
+              background:"white",
               color:"#1b5e20",
-              fontSize:"18px",
-              cursor:"pointer"
+              fontSize:"18px"
             }}
           >
             🛒 مصنوعات دیکھیں
@@ -71,43 +65,29 @@ export default function Home() {
 
         </Link>
 
-
       </section>
-
 
 
       {/* About */}
 
       <section
         style={{
-          padding:"30px",
+          padding:"35px",
           textAlign:"center"
         }}
       >
 
-        <h2
-          style={{
-            color:"#1b5e20"
-          }}
-        >
+        <h2 style={{color:"#1b5e20"}}>
           ہمارے بارے میں
         </h2>
 
-
-        <p
-          style={{
-            lineHeight:"2",
-            fontSize:"18px"
-          }}
-        >
-          گھر کا دَواخانہ میں آپ کو قدرتی جڑی بوٹیاں،
-          ہربل پاؤڈر، تیل اور روایتی حکمت سے متعلق
-          مصنوعات فراہم کی جاتی ہیں۔
+        <p style={{fontSize:"18px",lineHeight:"2"}}>
+          گھر کا دَواخانہ پر آپ کو خالص جڑی بوٹیاں،
+          ہربل پاؤڈر، قدرتی تیل اور روایتی حکمت
+          سے متعلق مصنوعات دستیاب ہیں۔
         </p>
 
-
       </section>
-
 
 
 
@@ -116,59 +96,78 @@ export default function Home() {
       <section
         style={{
           display:"grid",
-          gridTemplateColumns:"repeat(auto-fit,minmax(200px,1fr))",
+          gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",
           gap:"20px",
           padding:"20px"
         }}
       >
 
+        {[
+          ["🌿","جڑی بوٹیاں","قدرتی پاؤڈر اور سفوف"],
+          ["🧴","قدرتی تیل","کلونجی، زیتون اور بادام روغن"],
+          ["🍯","ہربل مصنوعات","معیاری اور خالص مصنوعات"]
+        ].map((item,index)=>(
+
+          <div
+            key={index}
+            style={{
+              background:"white",
+              padding:"25px",
+              borderRadius:"20px",
+              textAlign:"center",
+              boxShadow:"0 5px 15px #ddd"
+            }}
+          >
+
+            <h1>{item[0]}</h1>
+            <h3>{item[1]}</h3>
+            <p>{item[2]}</p>
+
+          </div>
+
+        ))}
+
+      </section>
+
+
+
+      {/* Featured Products */}
+
+      <section style={{padding:"30px"}}>
+
+        <h2 style={{textAlign:"center",color:"#1b5e20"}}>
+          مشہور مصنوعات
+        </h2>
+
 
         <div
           style={{
-            background:"white",
-            padding:"25px",
-            borderRadius:"20px",
-            textAlign:"center",
-            boxShadow:"0 4px 10px #ddd"
+            display:"grid",
+            gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))",
+            gap:"15px"
           }}
         >
-          🌿
-          <h3>جڑی بوٹیاں</h3>
-          <p>قدرتی پاؤڈر اور سفوف</p>
+
+        {products.map((p,index)=>(
+
+          <div
+            key={index}
+            style={{
+              background:"white",
+              padding:"20px",
+              borderRadius:"15px",
+              textAlign:"center"
+            }}
+          >
+
+            🌿
+            <h3>{p}</h3>
+
+          </div>
+
+        ))}
+
         </div>
-
-
-
-        <div
-          style={{
-            background:"white",
-            padding:"25px",
-            borderRadius:"20px",
-            textAlign:"center",
-            boxShadow:"0 4px 10px #ddd"
-          }}
-        >
-          🧴
-          <h3>قدرتی تیل</h3>
-          <p>کلونجی، زیتون اور بادام روغن</p>
-        </div>
-
-
-
-        <div
-          style={{
-            background:"white",
-            padding:"25px",
-            borderRadius:"20px",
-            textAlign:"center",
-            boxShadow:"0 4px 10px #ddd"
-          }}
-        >
-          🍯
-          <h3>ہربل مصنوعات</h3>
-          <p>خالص اور معیاری مصنوعات</p>
-        </div>
-
 
       </section>
 
@@ -176,12 +175,7 @@ export default function Home() {
 
       {/* WhatsApp */}
 
-      <div
-        style={{
-          textAlign:"center",
-          padding:"30px"
-        }}
-      >
+      <div style={{textAlign:"center",padding:"30px"}}>
 
         <a
           href="https://wa.me/923477357397"
@@ -193,23 +187,19 @@ export default function Home() {
               background:"#25D366",
               color:"white",
               border:"none",
-              padding:"15px 40px",
+              padding:"15px 45px",
               borderRadius:"30px",
               fontSize:"18px"
             }}
           >
-            🟢 WhatsApp رابطہ
+            🟢 WhatsApp آرڈر
           </button>
 
         </a>
 
-
       </div>
 
 
-
     </main>
-
   );
-
 }
