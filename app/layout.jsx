@@ -1,6 +1,7 @@
 import "./globals.css";
 import { CartProvider } from "./context/CartContext";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export const metadata = {
   title: "گھر کا دَواخانہ | قدرتی جڑی بوٹیاں اور ہربل مصنوعات",
@@ -20,10 +21,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ur" dir="rtl">
       <body>
+
         <CartProvider>
+
           <Navbar />
+
           {children}
+
+          <Footer />
+
         </CartProvider>
+
       </body>
     </html>
   );
