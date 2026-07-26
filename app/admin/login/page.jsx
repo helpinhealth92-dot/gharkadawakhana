@@ -13,14 +13,15 @@ export default function AdminLogin(){
   const [error,setError] = useState("");
 
 
+
   function handleLogin(e){
 
     e.preventDefault();
 
 
     if(
-      email === "admin@gharkadawakhana.com" &&
-      password === "admin123"
+      email === "helpinhealth92@gmail.com" &&
+      password === "MA01091981Afzalnadeem@"
     ){
 
       localStorage.setItem(
@@ -28,11 +29,17 @@ export default function AdminLogin(){
         "true"
       );
 
+
       router.push("/admin/dashboard");
+
 
     }else{
 
-      setError("Email یا Password غلط ہے");
+
+      setError(
+        "Email یا Password غلط ہے"
+      );
+
 
     }
 
@@ -64,11 +71,11 @@ export default function AdminLogin(){
 
         style={{
 
+          width:"360px",
           background:"white",
-          width:"350px",
           padding:"35px",
-          borderRadius:"20px",
-          boxShadow:"0 8px 25px #ccc",
+          borderRadius:"25px",
+          boxShadow:"0 10px 30px #ccc",
           textAlign:"center"
 
         }}
@@ -87,9 +94,10 @@ export default function AdminLogin(){
 
         >
 
-          Admin Login
+          🌿 Admin Login
 
         </h1>
+
 
 
 
@@ -99,15 +107,17 @@ export default function AdminLogin(){
 
           dir="ltr"
 
-          placeholder="Email"
-
           value={email}
 
           onChange={(e)=>setEmail(e.target.value)}
 
+          placeholder="Enter Email"
+
           style={inputStyle}
 
         />
+
+
 
 
 
@@ -117,11 +127,11 @@ export default function AdminLogin(){
 
           dir="ltr"
 
-          placeholder="Password"
-
           value={password}
 
           onChange={(e)=>setPassword(e.target.value)}
+
+          placeholder="Enter Password"
 
           style={inputStyle}
 
@@ -129,14 +139,19 @@ export default function AdminLogin(){
 
 
 
+
+
         {
+
           error &&
 
           <p
 
             style={{
 
-              color:"red"
+              color:"red",
+
+              fontSize:"14px"
 
             }}
 
@@ -147,6 +162,8 @@ export default function AdminLogin(){
           </p>
 
         }
+
+
 
 
 
@@ -167,6 +184,7 @@ export default function AdminLogin(){
       </form>
 
 
+
     </main>
 
   );
@@ -175,16 +193,18 @@ export default function AdminLogin(){
 
 
 
+
 const inputStyle = {
 
   width:"100%",
-  padding:"12px",
+  padding:"13px",
   margin:"10px 0",
-  borderRadius:"10px",
+  borderRadius:"12px",
   border:"1px solid #ccc",
   fontSize:"16px",
   direction:"ltr",
-  textAlign:"left"
+  textAlign:"left",
+  boxSizing:"border-box"
 
 };
 
@@ -193,10 +213,10 @@ const inputStyle = {
 const buttonStyle = {
 
   width:"100%",
-  padding:"12px",
   marginTop:"15px",
+  padding:"13px",
   border:"none",
-  borderRadius:"25px",
+  borderRadius:"30px",
   background:"#1b5e20",
   color:"white",
   fontSize:"17px",
