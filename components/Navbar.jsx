@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('products');
+  const [adminSubTab, setAdminSubTab] = useState('dashboard');
   const [cart, setCart] = useState([]);
   const [weightState, setWeightState] = useState({});
   const [customer, setCustomer] = useState({ name: '', phone: '', address: '', payment: 'COD' });
@@ -12,7 +13,10 @@ export default function App() {
   // واٹس ایپ نمبر
   const whatsappNumber = '923477357397';
 
-  // ایڈمن کے لیے نئی پروڈکٹ
+  // آپ کے اصلی لوگو کی تصویر
+  const logoUrl = 'https://i.ibb.co/L8yXJ2B/afzal-logo.png'; 
+
+  // نئی پروڈکٹ کا فارم
   const [newProduct, setNewProduct] = useState({ nameUrdu: '', basePrice: '', desc: '', img: '' });
 
   // تمام 32 مصنوعات
@@ -104,156 +108,218 @@ export default function App() {
   };
 
   return (
-    <div style={{ maxWidth: '450px', margin: 'auto', fontFamily: 'sans-serif', backgroundColor: '#ffffff', minHeight: '100vh', padding: '15px' }}>
+    <div style={{ maxWidth: '450px', margin: 'auto', fontFamily: 'sans-serif', backgroundColor: activeTab === 'admin' ? '#145214' : '#ffffff', minHeight: '100vh', transition: 'background-color 0.3s' }}>
       
-      {/* 1. لوگو اور نام (لوگو اوپر آپ کی تصویر کے مطابق) */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <div>
-          <h2 style={{ color: '#2e7d32', margin: '0', fontSize: '28px', fontFamily: 'Urdu, sans-serif' }}>گھر کا دواخانہ</h2>
-          <p style={{ margin: '5px 0 0 0', color: '#555', fontSize: '18px', fontWeight: '500' }}>Herbalist Afzal Nadeem</p>
-        </div>
-        
-        {/* لوگو / مونوگرام */}
-        <div style={{ width: '80px', height: '80px', borderRadius: '50%', border: '2px solid #2e7d32', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#e8f5e9' }}>
-          <img 
-            src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=200" 
-            alt="Herbalist Afzal Nadeem Logo" 
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-            onError={(e) => { e.target.style.display = 'none'; }}
-          />
-          <span style={{ fontSize: '10px', textAlign: 'center', color: '#1b5e20', fontWeight: 'bold' }}>Herbalist<br/>Afzal Nadeem</span>
-        </div>
-      </div>
-
-      {/* 2. آپ کے پسندیدہ گول بٹنز (تصویر کے مطابق) */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center', marginBottom: '25px' }}>
-        
-        <div style={{ display: 'flex', gap: '15px', width: '100%', justifyContent: 'center' }}>
-          <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" style={{ ...styles.pillBtnLight, textDecoration: 'none', color: '#1b5e20' }}>
-            Contact 📞
-          </a>
-          <button onClick={() => { setActiveTab('products'); setOrderSuccess(false); }} style={styles.pillBtnLight}>
-            Home 🏠
-          </button>
-        </div>
-
-        <button onClick={() => { setActiveTab('admin'); setOrderSuccess(false); }} style={styles.pillBtnDark}>
-          ▼ Admin Dashboard ⚙️
-        </button>
-
-        <button onClick={() => { setActiveTab('products'); setOrderSuccess(false); }} style={styles.pillBtnLight}>
-          Products 🌿
-        </button>
-
-        <button onClick={() => { setActiveTab('cart'); setOrderSuccess(false); }} style={styles.pillBtnDark}>
-          Cart ({cart.length}) 🛒
-        </button>
-      </div>
-
-      <hr style={{ border: 'none', borderTop: '1px solid #eee', margin: '20px 0' }} />
-
-      {/* 3. مصنوعات کی لسٹ */}
-      {activeTab === 'products' && (
-        <div style={{ display: 'grid', gap: '15px' }}>
-          {products.map(p => (
-            <div key={p.id} style={{ display: 'flex', gap: '12px', backgroundColor: '#f9f9f9', padding: '12px', borderRadius: '12px', border: '1px solid #e0e0e0', alignItems: 'center', direction: 'rtl' }}>
-              <img src={p.img} alt={p.nameUrdu} style={{ width: '70px', height: '70px', objectFit: 'cover', borderRadius: '8px' }} />
-              <div style={{ flexGrow: 1 }}>
-                <h4 style={{ margin: '0 0 4px 0', fontSize: '16px', color: '#1b5e20' }}>{p.nameUrdu}</h4>
-                <p style={{ margin: '0 0 6px 0', fontSize: '12px', color: '#666' }}>{p.desc}</p>
-                
-                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                  <select onChange={(e) => setWeightState({ ...weightState, [p.id]: weights[e.target.value] })} style={{ padding: '4px 8px', borderRadius: '6px', border: '1px solid #ccc', fontSize: '12px' }}>
-                    {weights.map((w, i) => (
-                      <option key={i} value={i}>{w.label} - Rs.{Math.round(p.basePrice * w.factor)}</option>
-                    ))}
-                  </select>
-                  <button onClick={() => addToCart(p)} style={styles.addCartBtn}>+ شامل کریں</button>
-                </div>
-              </div>
+      {/* ================= 1. مین ویب سائٹ کا ویو ================= */}
+      {activeTab !== 'admin' && (
+        <div style={{ padding: '15px' }}>
+          
+          {/* اوپر کا ہینڈر اور آپ کا اصلی مونوگرام (تصویر #1 اور #3 کے مطابق) */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            {/* اصل لوگو */}
+            <div style={{ width: '85px', height: '85px', borderRadius: '50%', overflow: 'hidden', border: '2px solid #2e7d32', backgroundColor: '#f5f5f5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <img 
+                src={logoUrl} 
+                alt="Afzal Nadeem Monogram" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=200";
+                }}
+              />
             </div>
-          ))}
-        </div>
-      )}
 
-      {/* 4. کارٹ اور فارم */}
-      {activeTab === 'cart' && !orderSuccess && (
-        <div style={{ direction: 'rtl' }}>
-          <div style={{ backgroundColor: '#f9f9f9', padding: '15px', borderRadius: '12px', marginBottom: '15px' }}>
-            <h3 style={{ margin: '0 0 10px 0', borderBottom: '2px solid #1b5e20', paddingBottom: '5px' }}>آپ کا کارٹ</h3>
-            {cart.length === 0 ? (
-              <p style={{ textAlign: 'center', color: '#777' }}>آپ کا کارٹ خالی ہے۔</p>
-            ) : (
-              cart.map((item, index) => (
-                <div key={index} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #eee' }}>
-                  <span>{item.nameUrdu} ({item.label})</span>
-                  <strong>Rs. {item.finalPrice}</strong>
+            <div style={{ textAlign: 'right' }}>
+              <h2 style={{ color: '#2e7d32', margin: '0', fontSize: '26px', fontFamily: 'Urdu, sans-serif' }}>گھر کا دواخانہ</h2>
+              <p style={{ margin: '3px 0 0 0', color: '#444', fontSize: '16px', fontWeight: 'bold' }}>Herbalist Afzal Nadeem</p>
+            </div>
+          </div>
+
+          {/* مین بٹنز (Home, Contact, Admin Dashboard, Products, Cart) */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center', marginBottom: '25px' }}>
+            
+            <div style={{ display: 'flex', gap: '15px', width: '100%', justifyContent: 'center' }}>
+              <button onClick={() => { setActiveTab('products'); setOrderSuccess(false); }} style={styles.pillBtnLight}>
+                🏠 Home
+              </button>
+              <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" style={{ ...styles.pillBtnLight, textDecoration: 'none', color: '#1b5e20' }}>
+                Contact 📞
+              </a>
+            </div>
+
+            <button onClick={() => { setActiveTab('admin'); setAdminSubTab('dashboard'); }} style={styles.pillBtnDark}>
+              Admin ▼<br/>⚙️ Dashboard
+            </button>
+
+            <button onClick={() => { setActiveTab('products'); setOrderSuccess(false); }} style={styles.pillBtnLight}>
+              🌿 Products
+            </button>
+
+            <button onClick={() => { setActiveTab('cart'); setOrderSuccess(false); }} style={styles.pillBtnDark}>
+              🛒 Cart ({cart.length})
+            </button>
+          </div>
+
+          <hr style={{ border: 'none', borderTop: '1px solid #eee', margin: '20px 0' }} />
+
+          {/* پروڈکٹس لسٹ */}
+          {activeTab === 'products' && (
+            <div style={{ display: 'grid', gap: '15px' }}>
+              {products.map(p => (
+                <div key={p.id} style={{ display: 'flex', gap: '12px', backgroundColor: '#f9f9f9', padding: '12px', borderRadius: '12px', border: '1px solid #e0e0e0', alignItems: 'center', direction: 'rtl' }}>
+                  <img src={p.img} alt={p.nameUrdu} style={{ width: '70px', height: '70px', objectFit: 'cover', borderRadius: '8px' }} />
+                  <div style={{ flexGrow: 1 }}>
+                    <h4 style={{ margin: '0 0 4px 0', fontSize: '16px', color: '#1b5e20' }}>{p.nameUrdu}</h4>
+                    <p style={{ margin: '0 0 6px 0', fontSize: '12px', color: '#666' }}>{p.desc}</p>
+                    
+                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                      <select onChange={(e) => setWeightState({ ...weightState, [p.id]: weights[e.target.value] })} style={{ padding: '4px 8px', borderRadius: '6px', border: '1px solid #ccc', fontSize: '12px' }}>
+                        {weights.map((w, i) => (
+                          <option key={i} value={i}>{w.label} - Rs.{Math.round(p.basePrice * w.factor)}</option>
+                        ))}
+                      </select>
+                      <button onClick={() => addToCart(p)} style={styles.addCartBtn}>+ شامل کریں</button>
+                    </div>
+                  </div>
                 </div>
-              ))
-            )}
-
-            {cart.length > 0 && (
-              <div style={{ marginTop: '15px', backgroundColor: '#fff', padding: '10px', borderRadius: '8px', border: '1px solid #ddd' }}>
-                <p style={{ margin: '3px 0' }}>سب ٹوٹل: Rs. {subTotal}</p>
-                <p style={{ margin: '3px 0' }}>ڈیلیوری چارجز: Rs. {deliveryCharges}</p>
-                <h4 style={{ margin: '5px 0 0 0', color: '#1b5e20' }}>کُل رقم: Rs. {grandTotal}</h4>
-              </div>
-            )}
-          </div>
-
-          {cart.length > 0 && (
-            <form onSubmit={handleConfirmOrder} style={{ backgroundColor: '#f9f9f9', padding: '15px', borderRadius: '12px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <h4 style={{ margin: '0', color: '#1b5e20' }}>آرڈر اور ایڈریس کی تفصیل:</h4>
-              <input type="text" placeholder="آپ کا پورا نام" required value={customer.name} onChange={(e) => setCustomer({ ...customer, name: e.target.value })} style={styles.input} />
-              <input type="tel" placeholder="موبائل / واٹس ایپ نمبر" required value={customer.phone} onChange={(e) => setCustomer({ ...customer, phone: e.target.value })} style={styles.input} />
-              <textarea placeholder="مکمل پتہ (مکان نمبر، گلی، شہر)" required value={customer.address} onChange={(e) => setCustomer({ ...customer, address: e.target.value })} style={{ ...styles.input, height: '60px' }}></textarea>
-              
-              <label style={{ fontSize: '12px', fontWeight: 'bold' }}>ادائیگی کا طریقہ:</label>
-              <select value={customer.payment} onChange={(e) => setCustomer({ ...customer, payment: e.target.value })} style={styles.input}>
-                <option value="COD">کیش آن ڈلیوری (Cash on Delivery)</option>
-                <option value="JazzCash">جاز کیش (JazzCash)</option>
-                <option value="EasyPaisa">ایزی پیسہ (EasyPaisa)</option>
-              </select>
-
-              <button type="submit" style={styles.confirmOrderBtn}>واٹس ایپ پر آرڈر بھیجیں 💬</button>
-            </form>
+              ))}
+            </div>
           )}
-        </div>
-      )}
 
-      {/* 5. شکریہ کی سکرین */}
-      {orderSuccess && (
-        <div style={{ padding: '30px 15px', textAlign: 'center', backgroundColor: '#e8f5e9', borderRadius: '12px', direction: 'rtl' }}>
-          <h1 style={{ fontSize: '48px', margin: '0' }}>🎉</h1>
-          <h2 style={{ color: '#1b5e20' }}>بہت بہت شکریہ!</h2>
-          <p>آپ کا آرڈر موصول ہو چکا ہے۔ واٹس ایپ پر تفصیلات بھیج دی گئی ہیں۔</p>
-          <button onClick={() => { setCart([]); setOrderSuccess(false); setActiveTab('products'); }} style={styles.confirmOrderBtn}>مزید خریداری کریں</button>
-        </div>
-      )}
+          {/* کارٹ کا ویو */}
+          {activeTab === 'cart' && !orderSuccess && (
+            <div style={{ direction: 'rtl' }}>
+              <div style={{ backgroundColor: '#f9f9f9', padding: '15px', borderRadius: '12px', marginBottom: '15px' }}>
+                <h3 style={{ margin: '0 0 10px 0', borderBottom: '2px solid #1b5e20', paddingBottom: '5px' }}>آپ کا کارٹ</h3>
+                {cart.length === 0 ? (
+                  <p style={{ textAlign: 'center', color: '#777' }}>آپ کا کارٹ خالی ہے۔</p>
+                ) : (
+                  cart.map((item, index) => (
+                    <div key={index} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #eee' }}>
+                      <span>{item.nameUrdu} ({item.label})</span>
+                      <strong>Rs. {item.finalPrice}</strong>
+                    </div>
+                  ))
+                )}
 
-      {/* 6. ایڈمن ڈیش بورڈ */}
-      {activeTab === 'admin' && (
-        <div style={{ direction: 'rtl' }}>
-          <div style={{ backgroundColor: '#f9f9f9', padding: '15px', borderRadius: '12px', marginBottom: '15px' }}>
-            <h3>➕ نئی پروڈکٹ شامل کریں</h3>
-            <form onSubmit={handleAddProduct} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <input type="text" placeholder="پروڈکٹ کا نام" required value={newProduct.nameUrdu} onChange={(e) => setNewProduct({ ...newProduct, nameUrdu: e.target.value })} style={styles.input} />
-              <input type="number" placeholder="100 گرام کی قیمت (Rs)" required value={newProduct.basePrice} onChange={(e) => setNewProduct({ ...newProduct, basePrice: e.target.value })} style={styles.input} />
-              <input type="text" placeholder="مختصر فائدہ" value={newProduct.desc} onChange={(e) => setNewProduct({ ...newProduct, desc: e.target.value })} style={styles.input} />
-              <input type="text" placeholder="تصویر کا لنک (Image URL)" value={newProduct.img} onChange={(e) => setNewProduct({ ...newProduct, img: e.target.value })} style={styles.input} />
-              <button type="submit" style={styles.addCartBtn}>محفوظ کریں</button>
-            </form>
-          </div>
-
-          <div style={{ backgroundColor: '#f9f9f9', padding: '15px', borderRadius: '12px' }}>
-            <h3>📋 تمام پروڈکٹس ({products.length})</h3>
-            {products.map(p => (
-              <div key={p.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #eee', alignItems: 'center' }}>
-                <span>{p.nameUrdu} (100g = Rs.{p.basePrice})</span>
-                <button onClick={() => setProducts(products.filter(pr => pr.id !== p.id))} style={{ backgroundColor: '#d32f2f', color: 'white', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer' }}>حذف کریں</button>
+                {cart.length > 0 && (
+                  <div style={{ marginTop: '15px', backgroundColor: '#fff', padding: '10px', borderRadius: '8px', border: '1px solid #ddd' }}>
+                    <p style={{ margin: '3px 0' }}>سب ٹوٹل: Rs. {subTotal}</p>
+                    <p style={{ margin: '3px 0' }}>ڈیلیوری چارجز: Rs. {deliveryCharges}</p>
+                    <h4 style={{ margin: '5px 0 0 0', color: '#1b5e20' }}>کُل رقم: Rs. {grandTotal}</h4>
+                  </div>
+                )}
               </div>
-            ))}
+
+              {cart.length > 0 && (
+                <form onSubmit={handleConfirmOrder} style={{ backgroundColor: '#f9f9f9', padding: '15px', borderRadius: '12px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <h4 style={{ margin: '0', color: '#1b5e20' }}>آرڈر اور ایڈریس کی تفصیل:</h4>
+                  <input type="text" placeholder="آپ کا پورا نام" required value={customer.name} onChange={(e) => setCustomer({ ...customer, name: e.target.value })} style={styles.input} />
+                  <input type="tel" placeholder="موبائل / واٹس ایپ نمبر" required value={customer.phone} onChange={(e) => setCustomer({ ...customer, phone: e.target.value })} style={styles.input} />
+                  <textarea placeholder="مکمل پتہ (مکان نمبر، گلی، شہر)" required value={customer.address} onChange={(e) => setCustomer({ ...customer, address: e.target.value })} style={{ ...styles.input, height: '60px' }}></textarea>
+                  
+                  <label style={{ fontSize: '12px', fontWeight: 'bold' }}>ادائیگی کا طریقہ:</label>
+                  <select value={customer.payment} onChange={(e) => setCustomer({ ...customer, payment: e.target.value })} style={styles.input}>
+                    <option value="COD">کیش آن ڈلیوری (Cash on Delivery)</option>
+                    <option value="JazzCash">جاز کیش (JazzCash)</option>
+                    <option value="EasyPaisa">ایزی پیسہ (EasyPaisa)</option>
+                  </select>
+
+                  <button type="submit" style={styles.confirmOrderBtn}>واٹس ایپ پر آرڈر بھیجیں 💬</button>
+                </form>
+              )}
+            </div>
+          )}
+
+          {/* آرڈر مکمل ہونے کی سکرین */}
+          {orderSuccess && (
+            <div style={{ padding: '30px 15px', textAlign: 'center', backgroundColor: '#e8f5e9', borderRadius: '12px', direction: 'rtl' }}>
+              <h1 style={{ fontSize: '48px', margin: '0' }}>🎉</h1>
+              <h2 style={{ color: '#1b5e20' }}>بہت بہت شکریہ!</h2>
+              <p>آپ کا آرڈر موصول ہو چکا ہے۔ واٹس ایپ پر تفصیلات بھیج دی گئی ہیں۔</p>
+              <button onClick={() => { setCart([]); setOrderSuccess(false); setActiveTab('products'); }} style={styles.confirmOrderBtn}>مزید خریداری کریں</button>
+            </div>
+          )}
+
+        </div>
+      )}
+
+
+      {/* ================= 2. ایڈمن پورٹل (تصویر #2 کے عین مطابق) ================= */}
+      {activeTab === 'admin' && (
+        <div style={{ padding: '20px 15px', color: 'white', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          
+          {/* ایڈمن پورٹل کا ہیڈر (تصویر #2 کے مطابق) */}
+          <div style={{ textAlign: 'center', marginBottom: '30px', marginTop: '10px' }}>
+            <h2 style={{ fontSize: '30px', margin: '0', fontWeight: 'bold' }}>Ghar Ka Dawakhana 🌿</h2>
+            <p style={{ margin: '5px 0 0 0', fontSize: '18px', opacity: 0.9 }}>Admin Portal</p>
           </div>
+
+          {/* ایڈمن ڈیش بورڈ کے مخصوص اوول سفید بٹنز (تصویر #2 کے عین مطابق) */}
+          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '18px', alignItems: 'center' }}>
+            
+            <button onClick={() => setAdminSubTab('dashboard')} style={styles.adminPortalBtn}>
+              Dashboard 🏠
+            </button>
+
+            <button onClick={() => setAdminSubTab('manage')} style={styles.adminPortalBtn}>
+              Manage Products 📦
+            </button>
+
+            <button onClick={() => setAdminSubTab('add')} style={styles.adminPortalBtn}>
+              Add Product ➕
+            </button>
+
+            <button onClick={() => setActiveTab('products')} style={styles.adminPortalBtn}>
+              Website 🛒
+            </button>
+
+            <button onClick={() => setActiveTab('products')} style={{ ...styles.adminPortalBtn, backgroundColor: '#d32f2f', color: 'white' }}>
+              Logout 🚪
+            </button>
+          </div>
+
+          {/* ایڈمن کی ورکنگ ونڈو (مختلف آپشنز کے لیے) */}
+          <div style={{ width: '100%', marginTop: '30px', backgroundColor: '#ffffff', color: '#333', borderRadius: '15px', padding: '15px', direction: 'rtl' }}>
+            
+            {adminSubTab === 'dashboard' && (
+              <div>
+                <h3 style={{ margin: '0 0 10px 0', color: '#145214' }}>📊 ڈیش بورڈ کی صورتحال</h3>
+                <p>کل پروڈکٹس: <strong>{products.length}</strong></p>
+                <p>کارٹ میں موجود آئٹمز: <strong>{cart.length}</strong></p>
+                <p>واٹس ایپ نمبر: <strong>03477357397</strong></p>
+              </div>
+            )}
+
+            {adminSubTab === 'manage' && (
+              <div>
+                <h3 style={{ margin: '0 0 10px 0', color: '#145214' }}>📦 پروڈکٹس کا انتظام</h3>
+                <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
+                  {products.map(p => (
+                    <div key={p.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #eee', alignItems: 'center' }}>
+                      <span>{p.nameUrdu} (Rs. {p.basePrice})</span>
+                      <button onClick={() => setProducts(products.filter(pr => pr.id !== p.id))} style={{ backgroundColor: '#d32f2f', color: 'white', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer' }}>حذف کریں</button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {adminSubTab === 'add' && (
+              <div>
+                <h3 style={{ margin: '0 0 10px 0', color: '#145214' }}>➕ نئی پروڈکٹ شامل کریں</h3>
+                <form onSubmit={handleAddProduct} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <input type="text" placeholder="پروڈکٹ کا نام" required value={newProduct.nameUrdu} onChange={(e) => setNewProduct({ ...newProduct, nameUrdu: e.target.value })} style={styles.input} />
+                  <input type="number" placeholder="100 گرام کی قیمت (Rs)" required value={newProduct.basePrice} onChange={(e) => setNewProduct({ ...newProduct, basePrice: e.target.value })} style={styles.input} />
+                  <input type="text" placeholder="مختصر فائدہ" value={newProduct.desc} onChange={(e) => setNewProduct({ ...newProduct, desc: e.target.value })} style={styles.input} />
+                  <input type="text" placeholder="تصویر کا لنک (Image URL)" value={newProduct.img} onChange={(e) => setNewProduct({ ...newProduct, img: e.target.value })} style={styles.input} />
+                  <button type="submit" style={styles.confirmOrderBtn}>شامل کریں</button>
+                </form>
+              </div>
+            )}
+
+          </div>
+
         </div>
       )}
 
@@ -261,34 +327,50 @@ export default function App() {
   );
 }
 
-// سٹائلز (آپ کی تصویر والے ڈیزائن کے مطابق)
+// سٹائلز (تصاویر کے عین مطابق)
 const styles = {
   pillBtnLight: {
     backgroundColor: '#f1f8e9',
     color: '#1b5e20',
     border: 'none',
-    padding: '12px 28px',
+    padding: '12px 24px',
     borderRadius: '30px',
-    fontSize: '18px',
+    fontSize: '17px',
     fontWeight: 'bold',
     cursor: 'pointer',
     display: 'inline-flex',
     alignItems: 'center',
-    gap: '8px'
+    justifyContent: 'center',
+    gap: '8px',
+    minWidth: '120px'
   },
   pillBtnDark: {
     backgroundColor: '#1b5e20',
     color: 'white',
     border: 'none',
-    padding: '14px 35px',
+    padding: '12px 30px',
     borderRadius: '35px',
-    fontSize: '20px',
+    fontSize: '18px',
     fontWeight: 'bold',
     cursor: 'pointer',
     width: '85%',
-    textAlign: 'center'
+    textAlign: 'center',
+    lineHeight: '1.2'
+  },
+  adminPortalBtn: {
+    backgroundColor: '#ffffff',
+    color: '#145214',
+    border: 'none',
+    padding: '14px 20px',
+    borderRadius: '30px',
+    fontSize: '20px',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    width: '90%',
+    textAlign: 'center',
+    boxShadow: '0 2px 5px rgba(0,0,0,0.2)'
   },
   addCartBtn: { backgroundColor: '#1b5e20', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', fontSize: '12px' },
-  input: { padding: '8px', borderRadius: '6px', border: '1px solid #ccc', fontSize: '13px' },
+  input: { padding: '10px', borderRadius: '6px', border: '1px solid #ccc', fontSize: '14px' },
   confirmOrderBtn: { backgroundColor: '#1b5e20', color: 'white', padding: '12px', border: 'none', borderRadius: '8px', cursor: 'pointer', fontSize: '15px', fontWeight: 'bold', width: '100%', marginTop: '10px' }
 };
