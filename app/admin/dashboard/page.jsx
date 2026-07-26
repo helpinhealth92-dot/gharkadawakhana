@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
+
 export default function AdminDashboard(){
 
   const router = useRouter();
@@ -27,7 +28,7 @@ export default function AdminDashboard(){
 
         background:"#f5fff5",
 
-        padding:"30px",
+        padding:"25px",
 
         direction:"rtl"
 
@@ -35,6 +36,8 @@ export default function AdminDashboard(){
 
     >
 
+
+      {/* TOP HEADER */}
 
       <header
 
@@ -52,22 +55,33 @@ export default function AdminDashboard(){
 
           justifyContent:"space-between",
 
-          alignItems:"center"
+          alignItems:"center",
+
+          flexWrap:"wrap",
+
+          gap:"15px"
 
         }}
 
       >
 
 
-        <h1>
+        <div>
 
-          🌿 Ghar Ka Dawakhana
+          <h1 style={{margin:0}}>
 
-          <br/>
+            🌿 Ghar Ka Dawakhana
 
-          Admin Panel
+          </h1>
 
-        </h1>
+          <p style={{margin:"5px 0 0"}}>
+
+            Admin Panel
+
+          </p>
+
+        </div>
+
 
 
 
@@ -83,19 +97,21 @@ export default function AdminDashboard(){
 
             border:"none",
 
-            padding:"12px 25px",
+            padding:"12px 28px",
 
-            borderRadius:"25px",
+            borderRadius:"30px",
 
             cursor:"pointer",
 
-            fontWeight:"bold"
+            fontWeight:"bold",
+
+            fontSize:"16px"
 
           }}
 
         >
 
-          Logout
+          🚪 Logout
 
         </button>
 
@@ -107,11 +123,95 @@ export default function AdminDashboard(){
 
 
 
+      {/* TOP MENU */}
+
+      <nav
+
+        style={{
+
+          marginTop:"25px",
+
+          background:"white",
+
+          padding:"15px",
+
+          borderRadius:"20px",
+
+          display:"flex",
+
+          justifyContent:"center",
+
+          gap:"15px",
+
+          flexWrap:"wrap",
+
+          boxShadow:"0 5px 20px #ddd"
+
+        }}
+
+      >
+
+
+        <MenuButton
+
+          text="🏠 Dashboard"
+
+          click={()=>router.push("/admin/dashboard")}
+
+        />
+
+
+        <MenuButton
+
+          text="📦 Manage Products"
+
+          click={()=>router.push("/admin/products")}
+
+        />
+
+
+        <MenuButton
+
+          text="➕ Add Product"
+
+          click={()=>router.push("/admin/products")}
+
+        />
+
+
+        <MenuButton
+
+          text="✏️ Edit Products"
+
+          click={()=>router.push("/admin/products")}
+
+        />
+
+
+        <MenuButton
+
+          text="🛒 Website"
+
+          click={()=>router.push("/products")}
+
+        />
+
+
+      </nav>
+
+
+
+
+
+
+      {/* DASHBOARD CARDS */}
+
+
       <section
 
         style={{
 
-          marginTop:"40px",
+          marginTop:"35px",
 
           display:"grid",
 
@@ -127,17 +227,15 @@ export default function AdminDashboard(){
 
 
 
-
         <DashboardCard
 
           title="📦 Manage Products"
 
-          text="مصنوعات دیکھیں، تبدیل کریں"
+          text="مصنوعات دیکھیں اور تبدیل کریں"
 
           click={()=>router.push("/admin/products")}
 
         />
-
 
 
 
@@ -145,13 +243,11 @@ export default function AdminDashboard(){
 
           title="➕ Add Product"
 
-          text="نئی مصنوعات شامل کریں"
+          text="نئی جڑی بوٹی شامل کریں"
 
           click={()=>router.push("/admin/products")}
 
         />
-
-
 
 
 
@@ -167,19 +263,15 @@ export default function AdminDashboard(){
 
 
 
-
-
         <DashboardCard
 
-          title="🛒 Website Products"
+          title="🖼 Images"
 
-          text="اصل ویب سائٹ دیکھیں"
+          text="مصنوعات کی تصاویر کا انتظام"
 
-          click={()=>router.push("/products")}
+          click={()=>router.push("/admin/products")}
 
         />
-
-
 
 
 
@@ -195,8 +287,6 @@ export default function AdminDashboard(){
 
 
 
-
-
       </section>
 
 
@@ -207,6 +297,52 @@ export default function AdminDashboard(){
   );
 
 }
+
+
+
+
+
+
+function MenuButton({text,click}){
+
+
+return (
+
+<button
+
+onClick={click}
+
+style={{
+
+background:"#1b5e20",
+
+color:"white",
+
+border:"none",
+
+padding:"12px 20px",
+
+borderRadius:"25px",
+
+cursor:"pointer",
+
+fontSize:"15px"
+
+}}
+
+>
+
+{text}
+
+</button>
+
+);
+
+
+}
+
+
+
 
 
 
