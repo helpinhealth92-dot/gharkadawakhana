@@ -2,10 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
+
+
+* {
+  box-sizing: border-box;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
 
 body {
   margin: 0;
@@ -13,4 +25,84 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+
+/* Mobile Responsive Design */
+
+@media (max-width: 768px) {
+
+
+  h1 {
+    font-size: 28px !important;
+  }
+
+
+  h2 {
+    font-size: 22px !important;
+  }
+
+
+  h3 {
+    font-size: 18px !important;
+  }
+
+
+  main {
+    padding: 15px !important;
+  }
+
+
+  button {
+    width: 100%;
+    margin: 8px 0 !important;
+    font-size: 16px;
+  }
+
+
+  nav {
+    width: 100%;
+    flex-direction: column;
+    text-align: center;
+  }
+
+
+  nav a {
+    display: inline-block;
+    margin: 5px !important;
+    font-size: 15px;
+  }
+
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+
+}
+
+
+/* Small Mobile Phones */
+
+@media (max-width: 400px) {
+
+
+  h1 {
+    font-size: 24px !important;
+  }
+
+
+  h2 {
+    font-size: 20px !important;
+  }
+
+
+  p {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+
 }
