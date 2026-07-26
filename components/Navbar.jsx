@@ -16,7 +16,7 @@ export default function Navbar(){
       style={{
         direction:"rtl",
         background:"#ffffff",
-        boxShadow:"0 4px 20px rgba(0,0,0,0.10)",
+        boxShadow:"0 3px 18px rgba(0,0,0,0.08)",
         position:"sticky",
         top:0,
         zIndex:100
@@ -27,17 +27,17 @@ export default function Navbar(){
         style={{
           maxWidth:"1200px",
           margin:"auto",
-          padding:"12px 25px",
+          padding:"10px 20px",
           display:"flex",
           alignItems:"center",
           justifyContent:"space-between",
-          gap:"20px",
+          gap:"15px",
           flexWrap:"wrap"
         }}
       >
 
 
-        {/* Logo + Brand */}
+        {/* Brand */}
 
         <Link
           href="/"
@@ -51,19 +51,18 @@ export default function Navbar(){
             style={{
               display:"flex",
               alignItems:"center",
-              gap:"12px"
+              gap:"10px"
             }}
           >
 
             <Image
               src="/logo.png"
-              width={65}
-              height={65}
+              width={55}
+              height={55}
               alt="Ghar Ka Dawakhana Logo"
               style={{
                 borderRadius:"50%",
-                objectFit:"cover",
-                boxShadow:"0 4px 12px #ccc"
+                objectFit:"cover"
               }}
             />
 
@@ -73,8 +72,8 @@ export default function Navbar(){
               <h2
                 style={{
                   margin:0,
-                  fontSize:"22px",
-                  fontWeight:"bold"
+                  fontSize:"21px",
+                  fontWeight:"800"
                 }}
               >
                 گھر کا دَواخانہ
@@ -84,12 +83,13 @@ export default function Navbar(){
               <p
                 style={{
                   margin:0,
-                  fontSize:"14px",
+                  fontSize:"13px",
                   color:"#555"
                 }}
               >
                 Herbalist Afzal Nadeem
               </p>
+
 
             </div>
 
@@ -102,26 +102,39 @@ export default function Navbar(){
 
 
 
-
         {/* Menu */}
 
         <div
           style={{
             display:"flex",
             alignItems:"center",
-            gap:"10px",
+            justifyContent:"center",
+            gap:"8px",
             flexWrap:"wrap"
           }}
         >
 
-          <Menu href="/" text="🏠 Home" />
 
-          <Menu href="/products" text="🌿 Products" />
+          <NavItem
+            href="/"
+            text="🏠 Home"
+          />
 
-          <Menu href="/contact" text="📞 Contact Us" />
+
+          <NavItem
+            href="/products"
+            text="🌿 Products"
+          />
+
+
+          <NavItem
+            href="/contact"
+            text="📞 Contact Us"
+          />
 
 
         </div>
+
 
 
 
@@ -139,32 +152,36 @@ export default function Navbar(){
           <div
             style={{
               background:"#1b5e20",
-              color:"white",
-              padding:"12px 22px",
+              color:"#fff",
+              padding:"10px 18px",
               borderRadius:"30px",
-              fontWeight:"bold",
               display:"flex",
               alignItems:"center",
               gap:"8px",
-              boxShadow:"0 5px 15px rgba(27,94,32,.3)"
+              fontWeight:"bold",
+              boxShadow:"0 5px 12px rgba(27,94,32,0.25)"
             }}
           >
 
             🛒 Cart
 
+
             <span
               style={{
-                background:"white",
+                background:"#fff",
                 color:"#1b5e20",
+                width:"24px",
+                height:"24px",
                 borderRadius:"50%",
-                width:"25px",
-                height:"25px",
                 display:"flex",
+                alignItems:"center",
                 justifyContent:"center",
-                alignItems:"center"
+                fontSize:"14px"
               }}
             >
+
               {cart.length}
+
             </span>
 
 
@@ -186,7 +203,7 @@ export default function Navbar(){
 
 
 
-function Menu({href,text}){
+function NavItem({href,text}){
 
 return(
 
@@ -202,11 +219,13 @@ color:"#1b5e20",
 
 background:"#f1f8e9",
 
-padding:"10px 16px",
+padding:"9px 15px",
 
 borderRadius:"25px",
 
-fontWeight:"bold"
+fontWeight:"700",
+
+fontSize:"15px"
 
 }}
 
@@ -218,4 +237,4 @@ fontWeight:"bold"
 
 )
 
-}
+          }
