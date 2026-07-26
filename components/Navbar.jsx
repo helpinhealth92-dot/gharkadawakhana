@@ -7,13 +7,13 @@
   }}
 >
 
-  <NavItem 
-    href="/" 
+  <NavItem
+    href="/"
     text="🏠 Home"
   />
 
 
-  {/* Admin Dashboard یہاں آئے گا */}
+  {/* Admin */}
 
   {
     admin ?
@@ -30,7 +30,7 @@
           background:"#1b5e20",
           color:"white",
           border:"none",
-          padding:"8px 12px",
+          padding:"6px 10px",
           borderRadius:"20px",
           fontSize:"13px",
           fontWeight:"bold",
@@ -43,22 +43,24 @@
 
       {
         open &&
+
         <div style={dropdown}>
 
-          <MenuItem 
-            href="/admin/dashboard" 
+          <MenuItem
+            href="/admin/dashboard"
             text="📊 Dashboard"
           />
 
-          <MenuItem 
-            href="/admin/products" 
+          <MenuItem
+            href="/admin/products"
             text="➕ Add Product"
           />
 
-          <MenuItem 
-            href="/admin/products" 
+          <MenuItem
+            href="/admin/products"
             text="📦 Manage Products"
           />
+
 
           <button
             onClick={logout}
@@ -68,6 +70,7 @@
           </button>
 
         </div>
+
       }
 
     </div>
@@ -83,7 +86,7 @@
 
 
 
-  {/* Contact اب یہاں آئے گا */}
+  {/* Contact */}
 
   <NavItem
     href="/contact"
@@ -92,7 +95,7 @@
 
 
 
-  {/* Products اپنی جگہ رہے گا */}
+  {/* Products */}
 
   <NavItem
     href="/products"
