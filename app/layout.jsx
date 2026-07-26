@@ -1,5 +1,6 @@
 import "./globals.css";
 import { CartProvider } from "./context/CartContext";
+import Navbar from "../components/Navbar";
 
 export const metadata = {
   title: "گھر کا دَواخانہ",
@@ -11,6 +12,7 @@ export default function RootLayout({ children }) {
     <html lang="ur" dir="rtl">
       <body>
         <CartProvider>
+          <Navbar />
           {children}
         </CartProvider>
       </body>
